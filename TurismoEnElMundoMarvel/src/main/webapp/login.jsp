@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +11,7 @@
 	<div class="col-lg-5 mx-auto p-3 py-md-5">
 
 		<main>
-			<h1>Turismo en la Tierra Media</h1>
+			<h1>Turismo en el Mundo Marvel</h1>
 
 
 			<c:if test="${flash != null}">

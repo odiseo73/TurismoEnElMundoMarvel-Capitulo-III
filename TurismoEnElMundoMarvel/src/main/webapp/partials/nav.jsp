@@ -2,7 +2,7 @@
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
 	<div class="container">
-		<a class="navbar-brand" href="/turismo/index.jsp">Turismo en la Tierra Media</a>
+		<a class="navbar-brand" href="/TurismoEnElMundoMarvel_Webapp/index.do">Turismo en el Mundo Marvel</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 			data-bs-target="#navbarCollapse" aria-controls="navbarCollapse"
 			aria-expanded="false" aria-label="Toggle navigation">
@@ -11,23 +11,26 @@
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<ul class="navbar-nav me-auto mb-2 mb-md-0">
 				<li class="nav-item"><a class="nav-link active"
-					aria-current="page" href="/turismo/attractions/index.do">Atracciones</a></li>
+					aria-current="page" href="/TurismoEnElMundoMarvel_Webapp/attractions/index.do">Atracciones</a></li>
+					<li class="nav-item"><a class="nav-link active"
+					aria-current="page" href="/TurismoEnElMundoMarvel_Webapp/users/index.do">Usuarios</a></li>
 			</ul>
+					
 			<ul class="navbar-nav">
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-						<c:out value="${usuario.username}"></c:out>
+						<c:out value="${usuario.getUsername()}"></c:out>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-end"
 						aria-labelledby="navbarDropdown">
 						<li><a class="dropdown-item disabled" style="color: black;">
-							<i title="monedas" style="color: gold;" class="bi bi-coin"></i> <c:out value="${usuario.dineroDisponible}"></c:out>
+							<i title="monedas" style="color: gold;" class="bi bi-coin"></i> <c:out value="${usuario.getDinero()}"></c:out>
 						</a></li>
 						<li><a class="dropdown-item disabled" style="color: black;">
-							<i title="tiempo" style="color: blue;" class="bi bi-clock-fill"></i> <c:out value="${usuario.tiempoDisponible}h"></c:out>
+							<i title="tiempo" style="color: blue;" class="bi bi-clock-fill"></i> <c:out value="${usuario.getTiempoEnHoras()}h"></c:out>
 						</a></li>
 						<li><hr class="dropdown-divider"></li>
-						<li><a href="/turismo/logout" class="dropdown-item">Salir</a></li>
+						<li><a href="/TurismoEnElMundoMarvel_Webapp/logout" class="dropdown-item">Salir</a></li>
 					</ul>
 				</li>
 			</ul>

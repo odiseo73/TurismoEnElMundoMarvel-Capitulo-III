@@ -10,7 +10,7 @@ import utils.Crypt;
 //import java.util.List;
 
 public class Usuario {
-	private int id;
+	private Integer id;
 	private String username;
 	private double tiempoDisponible;
 	private double dineroDisponible;
@@ -31,8 +31,8 @@ public class Usuario {
 		this.admin = true;
 	}
 
-	public Usuario(int id, String username, String password, Double dinero, Double tiempoEnHoras) {
-		this(username,password, tiempoEnHoras, tiempoEnHoras);
+	public Usuario(Integer id, String username, String password, Double dinero, Double tiempoEnHoras) {
+		this(username,password, dinero, tiempoEnHoras);
 		this.id = id;
 	}
 
@@ -66,7 +66,10 @@ public class Usuario {
 	public Itinerario getItinerario() {
 		return this.itinerario;
 	}
-
+	
+	public void setPassword(String password) {
+		this.password = Crypt.hash(password);
+	}
 	public void setItinerario(Itinerario itinerario) {
 		this.itinerario = itinerario;
 	}

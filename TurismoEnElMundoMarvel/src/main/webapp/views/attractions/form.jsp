@@ -3,11 +3,11 @@
 	<div class="mb-3">
 		<label for="name" class="col-form-label">Nombre:</label> <input
 			type="text" class="form-control" id="name" name="name"
-			required value="${atraccion.name}">
+			required value="${atraccion.getNombre()}">
 	</div>
 	<div class="mb-3">
 		<label for="cost"
-			class='col-form-label ${atraccion.errors.get("precio") != null ? "is-invalid" : "" }'>Costo:</label>
+			class='col-form-label ${atraccion.getErrors().get("precio") != null ? "is-invalid" : "" }'>Costo:</label>
 		<input class="form-control" type="number" id="cost" name="cost"
 			required value="${atraccion.precio}"></input>
 		<div class="invalid-feedback">

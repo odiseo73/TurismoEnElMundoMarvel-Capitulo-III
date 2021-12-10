@@ -1,6 +1,5 @@
 package controller.session;
 
-
 import java.io.IOException;
 
 import jakarta.servlet.RequestDispatcher;
@@ -22,23 +21,22 @@ public class LoginServlet extends HttpServlet {
 		super.init();
 		loginService = new LoginService();
 	}
-	
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	String username = req.getParameter("username");
-    	String password = req.getParameter("password");
-    	
-    	Usuario usuario = loginService.login(username, password);
-    	
-    	if (!usuario.isNull()) {
-    		req.getSession().setAttribute("usuario", usuario);
-    		resp.sendRedirect("index.jsp");    		
-       	} else {
-    		req.setAttribute("flash", "Nombre de usuario o contraseña incorrectos");
-    		
-    		RequestDispatcher dispatcher = getServletContext()
-      		      .getRequestDispatcher("/login.jsp");
-      		    dispatcher.forward(req, resp);
-    	}
-    }
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String username = req.getParameter("username");
+		String password = req.getParameter("password");
+
+		Usuario usuario = loginService.login(username, password);
+
+		if (!usuario.isNull()) {
+			req.getSession().setAttribute("usuario", usuario);
+			resp.sendRedirect("index.jsp");
+		} else {
+			req.setAttribute("flash", "Nombre de usuario o contraseña incorrectos");
+
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
+			dispatcher.forward(req, resp);
+		}
+	}
 }

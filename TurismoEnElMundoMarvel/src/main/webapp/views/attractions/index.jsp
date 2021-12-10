@@ -28,13 +28,14 @@
 		</c:if>
 
 		<div class="bg-light p-4 mb-3 rounded">
-			<h1>Estas son las atracciones de la Tierra Media</h1>
+			<h1>Estas son las atracciones del Mundo Marvel</h1>
 		</div>
 
 		<c:if test="${usuario.esAdmin()}">
 			<div class="mb-3">
-				<a href="/turismo/attractions/create.do" class="btn btn-primary"
-					role="button"> <i class="bi bi-plus-lg"></i> Nueva Atracción
+				<a href="/TurismoEnElMundoMarvel_Webapp/attractions/create.do"
+					class="btn btn-primary" role="button"> <i class="bi bi-plus-lg"></i>
+					Nueva Atracción
 				</a>
 			</div>
 		</c:if>
@@ -49,28 +50,30 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${atracciones}" var="attraction">
+				<c:forEach items="${atracciones}" var="atraccion">
 					<tr>
-						<td><strong><c:out value="${atraccion.nombre}"></c:out></strong>
+						<td><strong><c:out value="${atraccion.getNombre()}"></c:out></strong>
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 								Cras pretium eros urna. Sed quis erat congue, bibendum tortor
 								malesuada, iaculis diam. Ut ut imperdiet sapien.</p></td>
-						<td><c:out value="${atraccion.precio}"></c:out></td>
-						<td><c:out value="${atraccion.tiempoEnHoras}"></c:out></td>
-						<td><c:out value="${atraccion.cupoDisponible}"></c:out></td>
+						<td><c:out value="${atraccion.getPrecio()}"></c:out></td>
+						<td><c:out value="${atraccion.getTiempoEnHoras()}"></c:out></td>
+						<td><c:out value="${atraccion.getCupoDisponible()}"></c:out></td>
 
-						<td><c:if test="${usuario.admin}">
-								<a href="/turismo/attractions/edit.do?id=${atraccion.id}"
+						<td><c:if test="${usuario.esAdmin()}">
+								<a
+									href="/TurismoEnElMundoMarvel_Webapp/attractions/edit.do?id=${atraccion.getId()}"
 									class="btn btn-light rounded-0" role="button"><i
 									class="bi bi-pencil-fill"></i></a>
-								<a href="/turismo/attractions/delete.do?id=${atraccion.id}"
+								<a href="/TurismoEnElMundoMarvel_Webapp/attractions/delete.do?id=${atraccion.getId()}"
 									class="btn btn-danger rounded" role="button"><i
 									class="bi bi-x-circle-fill"></i></a>
 							</c:if> <c:choose>
 
 								<c:when
 									test="${usuario.tieneDinero(atraccion) && usuario.tieneTiempo(atraccion) && atraccion.verificarCupo()}">
-									<a href="/turismo/attractions/buy.do?id=${attraction.id}"
+									<a
+										href="/TurismoEnElMundoMarvel_Webapp/attractions/buy.do?id=${atraccion.getId()}"
 										class="btn btn-success rounded" role="button">Comprar</a>
 								</c:when>
 								<c:otherwise>
