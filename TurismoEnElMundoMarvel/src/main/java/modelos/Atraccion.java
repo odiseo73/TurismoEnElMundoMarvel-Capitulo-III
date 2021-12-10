@@ -1,5 +1,6 @@
 package modelos;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,17 +14,34 @@ public class Atraccion implements Producto {
 	private Double tiempoEnHoras;
 	private final int CUPO_INICIAL;
 	private Integer cupoDisponible;
+	private HashMap<String,String> errores;
 
-	public Atraccion(int id, String nombre, double precio, double tiempoEnHoras, int cupo) {
+
+	public Atraccion(String nombre, Double precio, Double tiempoEnHoras, Integer cupo) {
 		super();
-		this.id = id;
 		this.nombre = nombre;
 		this.precio = precio;
 		this.tiempoEnHoras = tiempoEnHoras;
 		this.CUPO_INICIAL = cupo;
 		this.cupoDisponible = cupo;
 	}
-
+	public Atraccion(Integer id, String nombre, Double precio, Double tiempoEnHoras, Integer cupo) {
+		this(nombre,precio,tiempoEnHoras,cupo);
+		this.id = id;
+		
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public void setPrecio(Double precio) {
+		this.precio = precio;
+	}
+	public void setTiempoEnHoras(Double tiempoEnHoras) {
+		this.tiempoEnHoras = tiempoEnHoras;
+	}
+	public void setCupoDisponible(Integer cupoDisponible) {
+		this.cupoDisponible = cupoDisponible;
+	}
 	public String getNombre() {
 		return nombre;
 	}
@@ -106,6 +124,26 @@ public class Atraccion implements Producto {
 	public double getPrecioConDescuento() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	public boolean esValida() {
+		validar();
+		
+		return errores.isEmpty();
+	}
+	
+	public void validar() {
+		errores = new HashMap<String, String>();
+
+		if (precio <= 0) {
+			errores.put("precio", "Debe ser positivo");
+		}
+		if (tiempoEnHoras <= 0) {
+			errores.put("tiempoEnHoras", "Debe ser positivo");
+		}
+	
+		if (cupoDisponible <= 0) {
+			errores.put("cupoDisponible", "Debe ser positivo");
+		}
 	}
 
 

@@ -9,6 +9,7 @@ import java.util.List;
 import modelos.Atraccion;
 import modelos.Promocion;
 import persistence.commons.ConnectionProvider;
+import persistence.commons.MissingDataException;
 
 
 public class Atraccion_PromocionDAOImpl {
@@ -35,6 +36,22 @@ public class Atraccion_PromocionDAOImpl {
 		}
 		return promociones;
 
+	}
+	public int insert(Integer id1, Integer id2) {
+		try {
+			Connection connection = ConnectionProvider.getConnection();
+			String sql = "INSERT INTO ATRACCIONES_PROMOCIONES (ID_ATRACCIONES, ID_PROMOCIONES) VALUES (?,?)";
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, id1);
+			statement.setInt(2, id2);
+			
+			int rows = statement.executeUpdate();
+
+			return rows;
+
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 
 	private void agregarAtraccion(ResultSet result) throws SQLException {

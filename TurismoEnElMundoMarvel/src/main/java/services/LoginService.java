@@ -1,20 +1,21 @@
 package services;
 
-import model.User;
-import model.nullobjects.NullUser;
-import persistence.UserDAO;
+
+import modelos.Usuario;
+import modelos.nullobjects.NullUsuario;
+import persistence.UsuarioDAO;
 import persistence.commons.DAOFactory;
 
 public class LoginService {
 
-	public User login(String username, String password) {
-		UserDAO userDao = DAOFactory.getUserDAO();
-    	User user = userDao.findByUsername(username);
+	public Usuario login(String username, String password) {
+		UsuarioDAO usuarioDao = DAOFactory.getUsuarioDAO();
+    	Usuario usuario = usuarioDao.findByUsername(username);
     	
-    	if (user.isNull() || !user.checkPassword(password)) {
-    		user = NullUser.build();
+    	if (usuario.isNull() || !usuario.checkPassword(password)) {
+    		usuario = NullUsuario.build();
     	}
-    	return user;
+    	return usuario;
 	}
 	
 }

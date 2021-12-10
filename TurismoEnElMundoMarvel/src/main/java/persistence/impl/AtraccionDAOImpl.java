@@ -62,7 +62,7 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 		Integer id = result.getInt("id_atracciones");
 
 		String nombre = result.getString("nombre");
-		Integer precio = result.getInt("precio");
+		Double precio = result.getDouble("precio");
 		Integer cupo = result.getInt("cupoDisponible");
 		Double tiempo = result.getDouble("tiempoEnHoras");
 
@@ -92,11 +92,11 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 	@Override
 	public int delete(Atraccion atraccion) {
 		try {
-			String sql = "DELETE FROM ATRACCIONES WHERE NOMBRE = ?";
+			String sql = "DELETE FROM ATRACCIONES WHERE ID_ATRACCIONES = ?";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, atraccion.getNombre());
+			statement.setInt(1, atraccion.getId());
 			int rows = statement.executeUpdate();
 
 			return rows;

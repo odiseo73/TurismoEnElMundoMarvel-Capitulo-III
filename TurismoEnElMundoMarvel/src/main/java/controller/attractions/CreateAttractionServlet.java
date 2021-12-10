@@ -8,7 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Attraction;
+import modelos.Atraccion;
 import services.AttractionService;
 
 @WebServlet("/attractions/create.do")
@@ -34,16 +34,16 @@ public class CreateAttractionServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String name = req.getParameter("name");
-		Integer cost = Integer.parseInt(req.getParameter("cost"));
+		Double precio = Double.parseDouble(req.getParameter("precio"));
 		Double duration = Double.parseDouble(req.getParameter("duration"));
 		Integer capacity = Integer.parseInt(req.getParameter("capacity"));
 
-		Attraction attraction = attractionService.create(name, cost, duration, capacity);
+		Atraccion atraccion = attractionService.create(name, precio, duration, capacity);
 		
-		if (attraction.isValid()) {
+		if (atraccion.esValida()) {
 			resp.sendRedirect("/turismo/attractions/index.do");
 		} else {
-			req.setAttribute("attraction", attraction);
+			req.setAttribute("attraction", atraccion);
 
 			RequestDispatcher dispatcher = getServletContext()
 					.getRequestDispatcher("/views/attractions/create.jsp");

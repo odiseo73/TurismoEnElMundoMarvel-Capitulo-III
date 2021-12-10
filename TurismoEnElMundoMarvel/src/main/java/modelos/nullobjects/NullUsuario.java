@@ -2,16 +2,17 @@ package modelos.nullobjects;
 
 import modelos.Usuario;
 
-public class NullUser extends Usuario {
+public class NullUsuario extends Usuario {
 
 	public static Usuario build() {
-		return new NullUser();
+		return new NullUsuario();
 	}
 	
-	public NullUser() {
-		super(0, "", 0, 0.0);
+	public NullUsuario() {
+		super(0, "", "", 0.0, 0.0);
 	}
 	
+	@Override
 	public boolean isNull() {
 		return true;
 	}

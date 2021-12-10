@@ -10,7 +10,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.User;
+import modelos.Usuario;
 import services.UserService;
 
 @WebServlet("/users/index.do")
@@ -28,7 +28,7 @@ public class ListUsersServlet extends HttpServlet implements Servlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		List<User> users = userService.list();
+		List<Usuario> users = userService.list();
 		req.setAttribute("users", users);
 
 		RequestDispatcher dispatcher = getServletContext()

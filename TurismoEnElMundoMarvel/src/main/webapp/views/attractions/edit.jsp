@@ -11,7 +11,7 @@
 
 	<main class="container">
 
-		<c:if test="${attraction != null && !attraction.isValid()}">
+		<c:if test="${atraccion != null && !atraccion.esValida()}">
 			<div class="alert alert-danger">
 				<p>Se encontraron errores al actualizar la atracción.</p>
 			</div>

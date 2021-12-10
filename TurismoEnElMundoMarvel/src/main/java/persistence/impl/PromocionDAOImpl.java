@@ -11,6 +11,7 @@ import modelos.Promocion;
 import modelos.PromocionAbsoluta;
 import modelos.PromocionAxB;
 import modelos.PromocionPorcentual;
+import modelos.nullobjects.NullPromocion;
 import persistence.PromocionDAO;
 import persistence.commons.MissingDataException;
 
@@ -62,8 +63,23 @@ public class PromocionDAOImpl implements PromocionDAO {
 
 	@Override
 	public Promocion find(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			String sql = "SELECT * FROM PROMOCIONES WHERE ID_PROMOCIONES = ?";
+			Connection conn = ConnectionProvider.getConnection();
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, id);
+			ResultSet resultados = statement.executeQuery();
+
+			Promocion promocion = NullPromocion.build();
+
+			if (resultados.next()) {
+				promocion = toPromocion(resultados);
+			}
+
+			return promocion;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 
 	@Override
@@ -86,14 +102,37 @@ public class PromocionDAOImpl implements PromocionDAO {
 	}
 
 	@Override
-	public int update(Promocion t) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int update(Promocion promocion) {
+		try {
+			Connection connection = ConnectionProvider.getConnection();
+			String sql = "UPDATE PROMOCIONES SET NOMBRE = ?, TIPO = ?, DESCUENTO = ? WHERE ID_PROMOCIONES = ?";
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setString(1, promocion.getNombre());
+			statement.setString(2, promocion.getTipo());
+			statement.setDouble(3, promocion.getPrecioConDescuento());
+
+			int rows = statement.executeUpdate();
+
+			return rows;
+
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 
 	@Override
-	public int delete(Promocion t) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int delete(Promocion promocion) {
+		try {
+			String sql = "DELETE FROM PROMOCIONES WHERE NOMBRE = ?";
+			Connection conn = ConnectionProvider.getConnection();
+
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, promocion.getNombre());
+			int rows = statement.executeUpdate();
+
+			return rows;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 }

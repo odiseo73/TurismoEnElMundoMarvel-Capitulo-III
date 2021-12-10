@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import persistence.commons.ConnectionProvider;
 import modelos.Usuario;
-import modelos.nullobjects.NullUser;
+import modelos.nullobjects.NullUsuario;
 import persistence.UsuarioDAO;
 import persistence.commons.MissingDataException;
 
@@ -47,7 +47,7 @@ try {
 		List<Usuario> usuarios = new LinkedList<Usuario>();
 
 		while (result.next()) {
-			usuarios.add(toUser(result));
+			usuarios.add(toUsuario(result));
 		}
 
 		return usuarios;
@@ -57,28 +57,30 @@ try {
 	}
 	
 
-	private Usuario toUser(ResultSet result) throws SQLException {
+	private Usuario toUsuario(ResultSet result) throws SQLException {
 		Integer id = result.getInt("id_usuarios");
 	
-		String nombre = result.getString("nombre");
+		String username = result.getString("username");
+		String password = result.getString("password");
 		Double dinero = result.getDouble("dinero");
 		Double tiempo = result.getDouble("tiempoDisponible");
 		
 
-		return new Usuario(id,nombre, dinero, tiempo);
+		return new Usuario(id,username,password, dinero, tiempo);
 	}
 
 
 	@Override
 	public int insert(Usuario user) {
 		try {
-			String sql = "INSERT INTO USUARIOS (NOMBRE,DINERO,TIEMPODISPONIBLE) VALUES (?, ?, ?)";
+			String sql = "INSERT INTO USUARIOS (USERNAME,PASSWORD,DINERO,TIEMPODISPONIBLE) VALUES (?,?, ?, ?)";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, user.getNombre());
-			statement.setDouble(2, user.getDinero());
-			statement.setDouble(3, user.getTiempoEnHoras());
+			statement.setString(1, user.getUsername());
+			statement.setString(2, user.getPassword());
+			statement.setDouble(3, user.getDinero());
+			statement.setDouble(4, user.getTiempoEnHoras());
 			int rows = statement.executeUpdate();
 
 			return rows;
@@ -92,11 +94,11 @@ try {
 	@Override
 	public int delete(Usuario user) {
 		try {
-			String sql = "DELETE FROM USUARIOS WHERE NOMBRE = ?";
+			String sql = "DELETE FROM USUARIOS WHERE ID_USUARIOS = ?";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, user.getNombre());
+			statement.setInt(1, user.getId());
 			int rows = statement.executeUpdate();
 
 			return rows;
@@ -110,16 +112,16 @@ try {
 
 	public Usuario findByUsername(String username) {
 		try {
-			String sql = "SELECT * FROM USUARIOS WHERE NOMBRE = ?";
+			String sql = "SELECT * FROM USUARIOS WHERE USERNAME = ?";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, username);
 			ResultSet resultados = statement.executeQuery();
 
-			Usuario user = NullUser.build();
+			Usuario user = NullUsuario.build();
 
 			if (resultados.next()) {
-				user = toUser(resultados);
+				user = toUsuario(resultados);
 			}
 
 			return user;
@@ -133,16 +135,16 @@ try {
 	@Override
 	public Usuario find(Integer id) {
 		try {
-			String sql = "SELECT * FROM USUARIOS WHERE NOMBRE = ?";
+			String sql = "SELECT * FROM USUARIOS WHERE ID_USUARIOS = ?";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, id);
 			ResultSet resultados = statement.executeQuery();
 
-			Usuario user = NullUser.build();
+			Usuario user = NullUsuario.build();
 
 			if (resultados.next()) {
-				user = toUser(resultados);
+				user = toUsuario(resultados);
 			}
 
 			return user;

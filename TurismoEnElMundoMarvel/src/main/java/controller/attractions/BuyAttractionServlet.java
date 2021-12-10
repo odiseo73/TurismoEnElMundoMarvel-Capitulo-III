@@ -9,7 +9,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.User;
+import modelos.Usuario;
 import persistence.commons.DAOFactory;
 import services.BuyAttractionService;
 
@@ -29,10 +29,10 @@ public class BuyAttractionServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		Integer attractionId = Integer.parseInt(req.getParameter("id"));
-		User user = (User) req.getSession().getAttribute("user");
+		Usuario user = (Usuario) req.getSession().getAttribute("user");
 		Map<String, String> errors = buyAttractionService.buy(user.getId(), attractionId);
 		
-		User user2 = DAOFactory.getUserDAO().find(user.getId());
+		Usuario user2 = DAOFactory.getUsuarioDAO().find(user.getId());
 		req.getSession().setAttribute("user", user2);
 		
 		if (errors.isEmpty()) {

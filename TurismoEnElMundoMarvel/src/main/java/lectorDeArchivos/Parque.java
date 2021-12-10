@@ -67,7 +67,7 @@ public class Parque {
 	private void aniadirItinerariosAUsuarios() {
 		for (Itinerario itinerario : itinerarios) {
 			for (Usuario usuario : usuarios) {
-				if (itinerario.getUsuario().equals(usuario.getNombre())) {
+				if (itinerario.getUsuario().equals(usuario.getUsername())) {
 					usuario.setItinerario(itinerario);
 				}
 			}
@@ -134,7 +134,7 @@ public class Parque {
 			// List<String> productosComprados = new ArrayList<String>();
 			System.out.println("----------------------------------------------");
 			System.out.println("Bienvenido/a a Mundo Marvel");
-			System.out.println("Nombre de Visitante: " + usuario.getNombre());
+			System.out.println("Nombre de Visitante: " + usuario.getUsername());
 			System.out.println("Le ofrecemos los siguientes productos");
 			System.out.println();
 
@@ -150,7 +150,7 @@ public class Parque {
 
 		for (Promocion promocion : promociones) {
 
-			if ((usuario.puedeComprar(promocion) && promocion.verificarCupo(atraccionesCompradas)
+			if ((usuario.tieneDinero(promocion) && promocion.verificarCupo(atraccionesCompradas)
 					&& !usuario.tieneComprado(promocion))) {
 
 				System.out.println(promocion);
@@ -185,7 +185,7 @@ public class Parque {
 		List<Atraccion> atraccionesCompradas = usuario.getAtraccionesCompradas();
 
 		for (Atraccion atraccionOfrecida : atracciones) {
-			if ((usuario.puedeComprar(atraccionOfrecida) && verificarCupo(atraccionesCompradas, atraccionOfrecida)
+			if ((usuario.tieneDinero(atraccionOfrecida) && verificarCupo(atraccionesCompradas, atraccionOfrecida)
 					&& !usuario.tieneComprado(atraccionOfrecida))) {
 
 				System.out.println(atraccionOfrecida);

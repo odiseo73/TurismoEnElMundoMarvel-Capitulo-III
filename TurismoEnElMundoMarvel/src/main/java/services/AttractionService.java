@@ -2,56 +2,56 @@ package services;
 
 import java.util.List;
 
-import model.Attraction;
-import persistence.AttractionDAO;
+import modelos.Atraccion;
+import persistence.AtraccionDAO;
 import persistence.commons.DAOFactory;
 
 public class AttractionService {
 
-	public List<Attraction> list() {
-		return DAOFactory.getAttractionDAO().findAll();
+	public List<Atraccion> list() {
+		return DAOFactory.getAtraccionDAO().findAll();
 	}
 
-	public Attraction create(String name, Integer cost, Double duration, Integer capacity) {
+	public Atraccion create(String nombre, Double cost, Double duration, Integer capacity) {
 
-		Attraction attraction = new Attraction(name, cost, duration, capacity);
+		Atraccion atraccion = new Atraccion(nombre, cost, duration, capacity);
 
-		if (attraction.isValid()) {
-			AttractionDAO attractionDAO = DAOFactory.getAttractionDAO();
-			attractionDAO.insert(attraction);
+		if (atraccion.esValida()) {
+			AtraccionDAO atraccionDAO = DAOFactory.getAtraccionDAO();
+			atraccionDAO.insert(atraccion);
 			// XXX: si no devuelve "1", es que hubo más errores
 		}
 
-		return attraction;
+		return atraccion;
 	}
 
-	public Attraction update(Integer id, String name, Integer cost, Double duration, Integer capacity) {
+	public Atraccion update(Integer id, String name, Double cost, Double duration, Integer capacity) {
 
-		AttractionDAO attractionDAO = DAOFactory.getAttractionDAO();
-		Attraction attraction = attractionDAO.find(id);
+		AtraccionDAO atraccionDAO = DAOFactory.getAtraccionDAO();
+		Atraccion atraccion = atraccionDAO.find(id);
 
-		attraction.setName(name);
-		attraction.setCost(cost);
-		attraction.setDuration(duration);
-		attraction.setCapacity(capacity);
+		atraccion.setNombre(name);
+		atraccion.setPrecio(cost);;
+		atraccion.setTiempoEnHoras(duration);
+		atraccion.setCupoDisponible(capacity);
 
-		if (attraction.isValid()) {
-			attractionDAO.update(attraction);
+		if (atraccion.esValida()) {
+			atraccionDAO.update(atraccion);
 			// XXX: si no devuelve "1", es que hubo más errores
 		}
 
-		return attraction;
+		return atraccion;
 	}
 
 	public void delete(Integer id) {
-		Attraction attraction = new Attraction(id, null, null, null, null);
+		Atraccion atraccion = new Atraccion(id, null, null, null, null);
 
-		AttractionDAO attractionDAO = DAOFactory.getAttractionDAO();
-		attractionDAO.delete(attraction);
+		AtraccionDAO atraccionDAO = DAOFactory.getAtraccionDAO();
+		atraccionDAO.delete(atraccion);
 	}
 
-	public Attraction find(Integer id) {
-		return DAOFactory.getAttractionDAO().find(id);
+	public Atraccion find(Integer id) {
+		return DAOFactory.getAtraccionDAO().find(id);
 	}
 
 }

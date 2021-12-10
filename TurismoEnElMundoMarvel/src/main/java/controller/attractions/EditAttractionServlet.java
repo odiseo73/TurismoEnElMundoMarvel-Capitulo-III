@@ -8,7 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Attraction;
+import modelos.Atraccion;
 import services.AttractionService;
 
 @WebServlet("/attractions/edit.do")
@@ -27,8 +27,8 @@ public class EditAttractionServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Integer id = Integer.parseInt(req.getParameter("id"));
 
-		Attraction attraction = attractionService.find(id);
-		req.setAttribute("attraction", attraction);
+		Atraccion atraccion = attractionService.find(id);
+		req.setAttribute("attraction", atraccion);
 
 		RequestDispatcher dispatcher = getServletContext()
 				.getRequestDispatcher("/views/attractions/edit.jsp");
@@ -38,18 +38,18 @@ public class EditAttractionServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Integer id = Integer.parseInt(req.getParameter("id"));
-		String name = req.getParameter("name");
-		Integer cost = Integer.parseInt(req.getParameter("cost"));
+		String nombre = req.getParameter("name");
+		Double precio = Double.parseDouble(req.getParameter("precio"));
 		// Integer cost = req.getParameter("cost").trim() == "" ? null : Integer.parseInt(req.getParameter("cost"));
 		Double duration = Double.parseDouble(req.getParameter("duration"));
 		Integer capacity = Integer.parseInt(req.getParameter("capacity"));
 
-		Attraction attraction = attractionService.update(id, name, cost, duration, capacity);
+		Atraccion atraccion = attractionService.update(id, nombre, precio, duration, capacity);
 
-		if (attraction.isValid()) {
+		if (atraccion.esValida()) {
 			resp.sendRedirect("/turismo/attractions/index.do");
 		} else {
-			req.setAttribute("attraction", attraction);
+			req.setAttribute("attraction", atraccion);
 
 			RequestDispatcher dispatcher = getServletContext()
 					.getRequestDispatcher("/views/attractions/edit.jsp");
