@@ -1,4 +1,4 @@
-package controller.users;
+package controller.promotions;
 
 import java.io.IOException;
 
@@ -8,45 +8,47 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import modelos.Usuario;
-import services.UserService;
+import modelos.Atraccion;
+import modelos.Promocion;
+import services.AttractionService;
+import services.PromotionService;
 
-@WebServlet("/users/create.do")
-public class CreateUserServlet extends HttpServlet {
+@WebServlet("/promotions/create.do")
+public class CreatePromotionServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 3455721046062278592L;
-	private UserService userService;
+	private PromotionService promotionService;
 
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		this.userService = new UserService();
+		this.promotionService = new PromotionService();
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		RequestDispatcher dispatcher = getServletContext()
-				.getRequestDispatcher("/views/users/create.jsp");
+				.getRequestDispatcher("/views/promotions/create.jsp");
 		dispatcher.forward(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String username = req.getParameter("username");
-		String password = req.getParameter("password");
-		Double coins = Double.parseDouble(req.getParameter("coins"));
-		Double time = Double.parseDouble(req.getParameter("time"));
-
-		Usuario tmp_user = userService.create(username, password, coins, time);
 		
-		if (tmp_user.esValido()) {
-			resp.sendRedirect("/turismo/users/index.do");
+		Integer id = Integer.parseInt(req.getParameter("id"));
+		String nombre= req.getParameter("nombre");
+		String tipo= req.getParameter("tipo");
+
+		Promocion promocion = promotionService.create(id,nombre,tipo);
+		
+		if (promocion.esPromocion()) {
+			resp.sendRedirect("/turismo/promotions/index.do");
 		} else {
-			req.setAttribute("tmp_user", tmp_user);
+			req.setAttribute("promotion", promocion);
 
 			RequestDispatcher dispatcher = getServletContext()
-					.getRequestDispatcher("/views/users/create.jsp");
+					.getRequestDispatcher("/views/promotions/create.jsp");
 			dispatcher.forward(req, resp);
 		}
 

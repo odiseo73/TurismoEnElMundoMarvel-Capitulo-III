@@ -1,4 +1,4 @@
-package controller.users;
+package controller.itinerary;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,29 +10,31 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import modelos.Itinerario;
 import modelos.Usuario;
+import services.ItineraryService;
 import services.UserService;
 
-@WebServlet("/users/index.do")
-public class ListUsersServlet extends HttpServlet implements Servlet {
+@WebServlet("/itinerarys/index.do")
+public class ListItenerarysServlet extends HttpServlet implements Servlet {
 
 	private static final long serialVersionUID = -8346640902238722429L;
-	private UserService userService;
+	private ItineraryService itineraryService;
 
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		this.userService = new UserService();
+		this.itineraryService = new ItineraryService();
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		List<Usuario> users = userService.list();
-		req.setAttribute("users", users);
+		List<Itinerario> itinerarys = itineraryService.list();
+		req.setAttribute("itinerarys", itinerarys);
 
 		RequestDispatcher dispatcher = getServletContext()
-				.getRequestDispatcher("/views/users/index.jsp");
+				.getRequestDispatcher("/views/itinerarys/index.jsp");
 		dispatcher.forward(req, resp);
 
 	}
