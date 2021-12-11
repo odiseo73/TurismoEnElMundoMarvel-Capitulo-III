@@ -1,35 +1,39 @@
 package services;
 
 import java.util.List;
+
+import modelos.Atraccion;
 import modelos.Itinerario;
-import modelos.Usuario;
+import persistence.AtraccionDAO;
 import persistence.ItinerarioDAO;
 import persistence.commons.DAOFactory;
 
 public class ItineraryService {
+
 	public List<Itinerario> list() {
 		return DAOFactory.getItinerarioDAO().findAll();
 	}
 
-	public Itinerario create(Usuario usuario) {
-
-		Itinerario itinerario = usuario.getItinerario();
-
-		if (itinerario.esValido()) {
-			ItinerarioDAO itinerarioDAO = DAOFactory.getItinerarioDAO();
-			itinerarioDAO.insert(itinerario);
+	public Itinerario create(String user, String productosComprados, Double horasNecesarias, Double puntos) {
+		
+		Itinerario itinerario = new Itinerario(user,productosComprados,horasNecesarias,puntos);
+		if (!itinerario.getUsuario().isEmpty()) {
+			DAOFactory.getItinerarioDAO().insert(itinerario);
 			// XXX: si no devuelve "1", es que hubo más errores
 		}
 
 		return itinerario;
 	}
-
-	public Itinerario update(Usuario usuario) {
+	
+	
+	public Itinerario update(Integer id, String name, Double cost, Double duration, Integer capacity) {
 
 		ItinerarioDAO itinerarioDAO = DAOFactory.getItinerarioDAO();
-		Itinerario itinerario = usuario.getItinerario();
+		Itinerario itinerario = itinerarioDAO.find(id);
 
-		if (itinerario.esValido()) {
+		//no se como hacer este metodo
+
+		if (!itinerario.getUsuario().isEmpty()) {
 			itinerarioDAO.update(itinerario);
 			// XXX: si no devuelve "1", es que hubo más errores
 		}
@@ -37,13 +41,7 @@ public class ItineraryService {
 		return itinerario;
 	}
 
-	public void delete(Usuario usuario) {
-
-		Itinerario itinerario = usuario.getItinerario();
-		ItinerarioDAO itinerarioDAO = DAOFactory.getItinerarioDAO();
-		itinerarioDAO.delete(itinerario);
-	}
-
+	
 	public Itinerario find(Integer id) {
 		return DAOFactory.getItinerarioDAO().find(id);
 	}

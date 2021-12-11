@@ -4,71 +4,43 @@ import java.util.List;
 
 import modelos.Atraccion;
 import modelos.Promocion;
-import modelos.PromocionAbsoluta;
-
+import persistence.AtraccionDAO;
 import persistence.PromocionDAO;
 import persistence.commons.DAOFactory;
-import persistence.impl.Atraccion_PromocionDAOImpl;
-import utils.PromotionSelector;
 
 public class PromotionService {
 
 	public List<Promocion> list() {
-
 		return DAOFactory.getPromocionDAO().findAll();
 	}
 
-	public Promocion create(String nombre, String tipo, Integer descuento, List<Atraccion> atracciones) {
+	public Promocion create(Integer id,String nombre,String tipo) {
 
-		Promocion promocion = PromotionSelector.clasificarPromocionSinId(nombre, tipo, descuento);
+		Promocion promocion = new Promocion(id,nombre,tipo);
 
-		if (promocion.esValida()) {
+		if (promocion.esPromocion()) {
 			PromocionDAO promocionDAO = DAOFactory.getPromocionDAO();
-			Atraccion_PromocionDAOImpl atr_promDAO = DAOFactory.getAtraccion_PromocionDAO();
-			for (Atraccion atraccion : atracciones) {
-				int id_promocion = promocion.getId();
-				if (atr_promDAO.find(id_promocion).equals(atraccion.getId())) {
-					atr_promDAO.insert(promocion, atraccion);
-					promocionDAO.insert(promocion);
-					// XXX: si no devuelve "1", es que hubo más errores
-				}
-			}
+			promocionDAO.insert(promocion);
+			// XXX: si no devuelve "1", es que hubo más errores
 		}
 
 		return promocion;
 	}
 
-	public Promocion update(Integer id, String name, String tipo, Integer descuento, List<Atraccion> atracciones) {
+	public Promocion update(Integer id, String name, String tipo) {
 
 		PromocionDAO promocionDAO = DAOFactory.getPromocionDAO();
 		Promocion promocion = promocionDAO.find(id);
 
-		promocion.setNombre(name);
-		promocion.setTipo(tipo);
-		promocion.setDescuento(descuento);
-
-		if (promocion.esValida()) {
-			Atraccion_PromocionDAOImpl atr_promDAO = DAOFactory.getAtraccion_PromocionDAO();
-			for (Atraccion atraccion : atracciones) {
-				int id_promocion = promocion.getId();
-				if (atr_promDAO.find(id_promocion).equals(atraccion.getId())) {
-					atr_promDAO.update(promocion, atraccion);
-					promocionDAO.update(promocion);
-					// XXX: si no devuelve "1", es que hubo más errores
-				}
-			}
-		}
+		//no se como hacer este metodo
 
 		return promocion;
 	}
 
 	public void delete(Integer id) {
-
-		Promocion promocion = new PromocionAbsoluta(id, null, null, null);
+		Promocion promocion = new Promocion(id,null,null);
 
 		PromocionDAO promocionDAO = DAOFactory.getPromocionDAO();
-		Atraccion_PromocionDAOImpl atr_promDAO = DAOFactory.getAtraccion_PromocionDAO();
-		atr_promDAO.deletePromotion(promocion);
 		promocionDAO.delete(promocion);
 	}
 
