@@ -67,7 +67,7 @@ public class Parque {
 	private void aniadirItinerariosAUsuarios() {
 		for (Itinerario itinerario : itinerarios) {
 			for (Usuario usuario : usuarios) {
-				if (itinerario.getUsuario().equals(usuario.getUsername())) {
+				if (itinerario.getUsername().equals(usuario.getUsername())) {
 					usuario.setItinerario(itinerario);
 				}
 			}

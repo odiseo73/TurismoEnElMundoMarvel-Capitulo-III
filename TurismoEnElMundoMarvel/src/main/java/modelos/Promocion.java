@@ -1,6 +1,7 @@
 package modelos;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,23 +11,38 @@ public abstract class Promocion implements Producto {
 	private List<Atraccion> atracciones;
 	private Integer id;
 	private String tipo;
+	private Integer descuento;
+	protected HashMap<String,String> errores;
 
-	public Promocion(Integer id, String nombre, String tipo) {
+	public Promocion(String nombre, String tipo) {
 		this.nombre = nombre;
+		this.tipo = tipo;
 		this.atracciones = new LinkedList<Atraccion>();
+	}
+	
+	public Promocion(Integer id, String nombre, String tipo) {
+		this(nombre, tipo);
 		this.id = id;
 	}
 
+	public void setAtracciones(List<Atraccion> atraccionesNuevas) {
+		for (Atraccion atraccion : atraccionesNuevas) {
+			
+		this.atracciones.add(atraccion);
+		}
+
+	}
 	public void agregarAtraccion(Atraccion atraccion) {
 		this.atracciones.add(atraccion);
 	}
-
 	public abstract double getPrecioConDescuento();
 
 	public String getNombre() {
 		return nombre;
 	}
-
+	public void setDescuento(Integer descuento) {
+		this.descuento = descuento;
+	}
 	public double getPrecio() {
 		double precio = 0;
 		for (Atraccion atraccion : atracciones) {
@@ -106,5 +122,21 @@ public abstract class Promocion implements Producto {
 	public Integer getId() {
 		return id;
 	}
+	public boolean esValida() {
+		validar();
+		
+		return errores.isEmpty();
+	}
+	
+	public void validar() {
+		errores = new HashMap<String, String>();
+	}
 
+	public void setNombre(String name) {
+		this.nombre = name;
+		
+	}
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
 }

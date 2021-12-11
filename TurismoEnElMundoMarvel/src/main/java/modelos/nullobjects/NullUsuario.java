@@ -9,7 +9,7 @@ public class NullUsuario extends Usuario {
 	}
 	
 	public NullUsuario() {
-		super(0, "", "", 0.0, 0.0);
+		super(0, "", "", 0.0, 0.0,false);
 	}
 	
 	@Override

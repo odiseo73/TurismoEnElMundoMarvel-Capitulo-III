@@ -14,6 +14,7 @@ import modelos.PromocionPorcentual;
 import modelos.nullobjects.NullPromocion;
 import persistence.PromocionDAO;
 import persistence.commons.MissingDataException;
+import utils.PromotionSelector;
 
 public class PromocionDAOImpl implements PromocionDAO {
 
@@ -39,7 +40,7 @@ public class PromocionDAOImpl implements PromocionDAO {
 
 	private Promocion toPromocion(ResultSet result) throws SQLException {
 
-		Promocion prom = null;
+		
 
 		Integer id = result.getInt("id_promociones");
 		String nombre = result.getString("nombre");
@@ -47,17 +48,7 @@ public class PromocionDAOImpl implements PromocionDAO {
 		String tipo = result.getString("tipo");
 		Integer descuento = result.getInt("descuento");
 
-		if (tipo.equals("porcentual")) {
-			prom = new PromocionPorcentual(id, nombre, descuento, tipo);
-		}
-
-		if (tipo.equals("absoluta")) {
-			prom = new PromocionAbsoluta(id, nombre, descuento, tipo);
-
-		}
-		if (tipo.equals("axb")) {
-			prom = new PromocionAxB(id, nombre, tipo);
-		}
+		Promocion prom = PromotionSelector.clasificarPromocionConId(id, nombre, tipo, descuento);
 		return prom;
 	}
 
@@ -110,7 +101,7 @@ public class PromocionDAOImpl implements PromocionDAO {
 			statement.setString(1, promocion.getNombre());
 			statement.setString(2, promocion.getTipo());
 			statement.setDouble(3, promocion.getPrecioConDescuento());
-
+			statement.setInt(4, promocion.getId());
 			int rows = statement.executeUpdate();
 
 			return rows;
@@ -123,11 +114,11 @@ public class PromocionDAOImpl implements PromocionDAO {
 	@Override
 	public int delete(Promocion promocion) {
 		try {
-			String sql = "DELETE FROM PROMOCIONES WHERE NOMBRE = ?";
+			String sql = "DELETE FROM PROMOCIONES WHERE ID_PROMOCIONES = ?";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, promocion.getNombre());
+			statement.setInt(1, promocion.getId());
 			int rows = statement.executeUpdate();
 
 			return rows;

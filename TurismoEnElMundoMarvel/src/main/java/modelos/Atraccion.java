@@ -145,6 +145,10 @@ public class Atraccion implements Producto {
 			errores.put("cupoDisponible", "Debe ser positivo");
 		}
 	}
+	@Override
+	public boolean isNull() {
+		return false;
+	}
 
 
 

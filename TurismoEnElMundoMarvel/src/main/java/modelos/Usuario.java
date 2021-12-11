@@ -21,18 +21,19 @@ public class Usuario {
 	private Boolean admin;
 	// private List<Atraccion> atraccionesCompradas;
 
-	public Usuario(String username, String password, Double dinero, Double tiempoEnHoras) {
+	public Usuario(String username, String password, Double dinero, Double tiempoEnHoras, Boolean admin) {
 		this.username = username;
 		this.password = password;
 		this.tiempoDisponible = tiempoEnHoras;
 		this.dineroDisponible = dinero;
 		this.atraccionesCompradas = new LinkedList<Atraccion>();
-		this.itinerario = new Itinerario(this.getUsername(), "", 0, 0);
-		this.admin = true;
+		this.itinerario = new Itinerario(this.id,this.getUsername(), "", 0, 0);
+		this.admin = admin;
+		this.setPassword(password);
 	}
 
-	public Usuario(Integer id, String username, String password, Double dinero, Double tiempoEnHoras) {
-		this(username,password, dinero, tiempoEnHoras);
+	public Usuario(Integer id, String username, String password, Double dinero, Double tiempoEnHoras,Boolean admin) {
+		this(username,password, dinero, tiempoEnHoras,admin);
 		this.id = id;
 	}
 
@@ -107,20 +108,19 @@ public class Usuario {
 		return atraccionesCompradas;
 	}
 
-	public boolean comprarProducto(Producto o) {
+	public void comprarProducto(Producto producto) {
 
-		this.dineroDisponible -= o.getPrecioConDescuento();
-		this.tiempoDisponible -= o.getTiempoEnHoras();
+		this.dineroDisponible -= producto.getPrecioConDescuento();
+		this.tiempoDisponible -= producto.getTiempoEnHoras();
 
-		if (o.esPromocion()) {
-			for (Atraccion atraccion : o.getAtracciones()) {
+		if (producto.esPromocion()) {
+			for (Atraccion atraccion : producto.getAtracciones()) {
 				this.atraccionesCompradas.add(atraccion);
 			}
 		}
-		if (!o.esPromocion()) {
-			atraccionesCompradas.add((Atraccion) o);
+		if (!producto.esPromocion()) {
+			atraccionesCompradas.add((Atraccion) producto);
 		}
-		return false;
 	}
 
 	@Override
@@ -163,6 +163,21 @@ public class Usuario {
 
 	public Map<String, String> getErrores() {
 		return errores;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+		
+	}
+
+	public void setDinero(Double dinero) {
+		this.dineroDisponible = dinero;
+		
+	}
+
+	public void setTiempo(Double tiempo) {
+		this.tiempoDisponible = tiempo;
+		
 	}
 
 }

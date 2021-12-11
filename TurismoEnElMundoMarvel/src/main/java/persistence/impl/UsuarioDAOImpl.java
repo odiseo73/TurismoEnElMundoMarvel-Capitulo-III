@@ -18,14 +18,15 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	public int update(Usuario user) {
 		try {
 		Connection connection = ConnectionProvider.getConnection();
-		String sql = "UPDATE USUARIOS SET USERNAME = ?, PASSWORD =?, DINERO = ?,TIEMPODISPONIBLE = ? WHERE ID_USUARIOS = ?";
+		String sql = "UPDATE USUARIOS SET USERNAME = ?, PASSWORD =?, DINERO = ?,TIEMPODISPONIBLE = ?, ADMIN = ? WHERE ID_USUARIOS = ?";
 		PreparedStatement statement = connection.prepareStatement(sql);
 		
 		statement.setString(1, user.getUsername());
 		statement.setString(2, user.getPassword());
 		statement.setDouble(3, user.getDinero());
 		statement.setDouble(4, user.getTiempoEnHoras());
-		statement.setInt(5, user.getId());
+		statement.setBoolean(5, user.esAdmin());
+		statement.setInt(6, user.getId());
 
 		
 		int rows = statement.executeUpdate();
@@ -66,16 +67,17 @@ try {
 		String password = result.getString("password");
 		Double dinero = result.getDouble("dinero");
 		Double tiempo = result.getDouble("tiempoDisponible");
+		Boolean admin = result.getBoolean("admin");
 		
 
-		return new Usuario(id,username,password, dinero, tiempo);
+		return new Usuario(id,username,password, dinero, tiempo, admin);
 	}
 
 
 	@Override
 	public int insert(Usuario user) {
 		try {
-			String sql = "INSERT INTO USUARIOS (USERNAME,PASSWORD,DINERO,TIEMPODISPONIBLE) VALUES (?,?, ?, ?)";
+			String sql = "INSERT INTO USUARIOS (USERNAME,PASSWORD,DINERO,TIEMPODISPONIBLE,ADMIN) VALUES (?,?, ?, ?, ?)";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
@@ -83,6 +85,7 @@ try {
 			statement.setString(2, user.getPassword());
 			statement.setDouble(3, user.getDinero());
 			statement.setDouble(4, user.getTiempoEnHoras());
+			statement.setBoolean(4, user.esAdmin());
 			int rows = statement.executeUpdate();
 
 			return rows;

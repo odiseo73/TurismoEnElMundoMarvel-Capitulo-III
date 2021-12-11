@@ -14,4 +14,5 @@ double getPrecioConDescuento();
 	 boolean compararNombresIguales(List<Atraccion> atraccionesCompradas, Producto productoOfrecido);
 
 	List<Atraccion> getAtracciones();
+	boolean isNull();
 }

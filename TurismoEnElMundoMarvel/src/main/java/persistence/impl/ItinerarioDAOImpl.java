@@ -19,13 +19,14 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 
 		try {
 			Connection connection = ConnectionProvider.getConnection();
-			String sql = "UPDATE ITINERARIO SET productosComprados = ?, horasNecesarias = ?, puntosGastados = ? WHERE USUARIO = ?";
+			String sql = "UPDATE ITINERARIO SET USERNAME = ?, productosComprados = ?, horasNecesarias = ?, puntosGastados = ? WHERE ID_ITINERARIO = ?";
 			PreparedStatement statement = connection.prepareStatement(sql);
-
-			statement.setString(1, itinerario.getProductos());
-			statement.setDouble(2, itinerario.getHorasNecesarias());
-			statement.setDouble(3, itinerario.getPuntos());
-			statement.setString(4, itinerario.getUsuario());
+			
+			statement.setString(1, itinerario.getUsername());
+			statement.setString(2, itinerario.getProductos());
+			statement.setDouble(3, itinerario.getHorasNecesarias());
+			statement.setDouble(4, itinerario.getPuntos());
+			statement.setInt(5, itinerario.getId());
 			int rows = statement.executeUpdate();
 
 			return rows;
@@ -56,12 +57,13 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 
 	private Itinerario toItinerario(ResultSet result) throws SQLException {
 
-		String usuario = result.getString("usuario");
+		Integer id = result.getInt("id_itinerario");
+		String usuario = result.getString("username");
 		String productos = result.getString("productosComprados");
 		Double horasNecesarias = result.getDouble("horasNecesarias");
 		Double puntos = result.getDouble("puntosGastados");
 
-		return new Itinerario(usuario, productos, horasNecesarias, puntos);
+		return new Itinerario(id,usuario, productos, horasNecesarias, puntos);
 	}
 
 	@Override
@@ -89,9 +91,9 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 	public int insert(Itinerario itinerario) {
 		try {
 			Connection connection = ConnectionProvider.getConnection();
-			String sql = "INSERT INTO ITINERARIO (USUARIO, PRODUCTOSCOMPRADOS, HORASNECESARIAS, PUNTOSGASTADOS) VALUES (?,?,?,?)";
+			String sql = "INSERT INTO ITINERARIO (USERNAME, PRODUCTOSCOMPRADOS, HORASNECESARIAS, PUNTOSGASTADOS) VALUES (?,?,?,?)";
 			PreparedStatement statement = connection.prepareStatement(sql);
-			statement.setString(1, itinerario.getUsuario());
+			statement.setString(1, itinerario.getUsername());
 			statement.setString(2, itinerario.getProductos());
 			statement.setDouble(3, itinerario.getHorasNecesarias());
 			statement.setDouble(4, itinerario.getPuntos());
@@ -108,11 +110,11 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 	@Override
 	public int delete(Itinerario itinerario) {
 		try {
-			String sql = "DELETE FROM ITINERARIO WHERE USUARIO = ?";
+			String sql = "DELETE FROM ITINERARIO WHERE ID_ITINERARIO = ?";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, itinerario.getUsuario());
+			statement.setInt(1, itinerario.getId());
 			int rows = statement.executeUpdate();
 
 			return rows;
