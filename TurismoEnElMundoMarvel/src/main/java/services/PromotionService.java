@@ -8,12 +8,19 @@ import modelos.PromocionAbsoluta;
 import persistence.AtraccionDAO;
 import persistence.PromocionDAO;
 import persistence.commons.DAOFactory;
+import persistence.impl.Atraccion_PromocionDAOImpl;
 import utils.PromotionSelector;
 
 public class PromotionService {
 
 	public List<Promocion> list() {
-		return DAOFactory.getPromocionDAO().findAll();
+		List<Atraccion> atracciones = DAOFactory.getAtraccionDAO().findAll();
+		List<Promocion> promociones = DAOFactory.getPromocionDAO().findAll();
+		Atraccion_PromocionDAOImpl atr_promDAO = DAOFactory.getAtraccion_PromocionDAO();
+		atr_promDAO.setAtracciones(atracciones);
+		atr_promDAO.setPromociones(promociones);
+		promociones = atr_promDAO.findAll();
+		return promociones;
 	}
 
 	public Promocion create(String nombre,String tipo, Integer descuento) {

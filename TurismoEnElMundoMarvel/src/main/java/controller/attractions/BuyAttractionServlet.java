@@ -29,11 +29,11 @@ public class BuyAttractionServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		Integer attractionId = Integer.parseInt(req.getParameter("id"));
-		Usuario user = (Usuario) req.getSession().getAttribute("user");
+		Usuario user = (Usuario) req.getSession().getAttribute("usuario");
 		Map<String, String> errors = buyAttractionService.buy(user.getId(), attractionId);
 		
 		Usuario user2 = DAOFactory.getUsuarioDAO().find(user.getId());
-		req.getSession().setAttribute("user", user2);
+		req.getSession().setAttribute("usuario", user2);
 		
 		if (errors.isEmpty()) {
 			req.setAttribute("success", "¡Gracias por comprar!");

@@ -21,12 +21,12 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 	public int update(Atraccion atraccion) {
 		try {
 			Connection connection = ConnectionProvider.getConnection();
-			String sql = "UPDATE ATRACCIONES SET NOMBRE = ?, PRECIO = ?, CUPODISPONIBLE = ?, TIEMPOENHORAS = ? WHERE ID_ATRACCIONES = ?";
+			String sql = "UPDATE ATRACCIONES SET NOMBRE = ?, PRECIO = ?, TIEMPOENHORAS = ?, CUPODISPONIBLE = ? WHERE ID_ATRACCIONES = ?";
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, atraccion.getNombre());
 			statement.setDouble(2, atraccion.getPrecio());
-			statement.setDouble(3, atraccion.getCupoDisponible());
-			statement.setDouble(4, atraccion.getTiempoEnHoras());
+			statement.setDouble(3, atraccion.getTiempoEnHoras());
+			statement.setInt(4, atraccion.getCupoDisponible());
 			statement.setInt(5, atraccion.getId());
 
 			int rows = statement.executeUpdate();
@@ -73,13 +73,12 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 	public int insert(Atraccion atraccion) {
 		try {
 			Connection connection = ConnectionProvider.getConnection();
-			String sql = "INSERT INTO ATRACCIONES (NOMBRE, PRECIO, CUPODISPONIBLE, TIEMPOENHORAS) VALUES (?,?,?,?)";
+			String sql = "INSERT INTO ATRACCIONES (NOMBRE, PRECIO, TIEMPOENHORAS, CUPODISPONIBLE) VALUES (?,?,?,?)";
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, atraccion.getNombre());
 			statement.setDouble(2, atraccion.getPrecio());
-			statement.setDouble(3, atraccion.getCupoDisponible());
-			statement.setDouble(4, atraccion.getTiempoEnHoras());
-			
+			statement.setDouble(3, atraccion.getTiempoEnHoras());
+			statement.setDouble(4, atraccion.getCupoDisponible());
 			int rows = statement.executeUpdate();
 
 			return rows;

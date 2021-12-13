@@ -109,15 +109,17 @@ public class Usuario {
 
 	public void comprarProducto(Producto producto) {
 
-		this.dineroDisponible -= producto.getPrecioConDescuento();
+		
 		this.tiempoDisponible -= producto.getTiempoEnHoras();
 
 		if (producto.esPromocion()) {
+			this.dineroDisponible -= producto.getPrecioConDescuento();
 			for (Atraccion atraccion : producto.getAtracciones()) {
 				this.atraccionesCompradas.add(atraccion);
 			}
 		}
 		if (!producto.esPromocion()) {
+			this.dineroDisponible -= producto.getPrecio();
 			atraccionesCompradas.add((Atraccion) producto);
 		}
 	}
