@@ -16,9 +16,9 @@
 			<div class="alert alert-danger">
 				<p>
 					<c:out value="${flash}" />
-					<c:if test="${errors != null}">
+					<c:if test="${errores != null}">
 						<ul>
-							<c:forEach items="${errors}" var="entry">
+							<c:forEach items="${errores}" var="entry">
 								<li><c:out value="${entry.getValue()}"></c:out></li>
 							</c:forEach>
 						</ul>
@@ -51,12 +51,12 @@
 			<tbody>
 				<c:forEach items="${usuarios}" var="tmp_user">
 					<tr>
-						<td><strong><c:out value="${tmp_user.username}"></c:out></strong></td>
-						<td><c:out value="${tmp_user.coins}"></c:out></td>
-						<td><c:out value="${tmp_user.time}"></c:out></td>
+						<td><strong><c:out value="${tmp_user.getUsername()}"></c:out></strong></td>
+						<td><c:out value="${tmp_user.getDinero()}"></c:out></td>
+						<td><c:out value="${tmp_user.getTiempoEnHoras()}"></c:out></td>
 						<td>
 							<c:choose>
-								<c:when test="${tmp_user.admin}">
+								<c:when test="${tmp_user.esAdmin()}">
 									Admin
 								</c:when>
 								<c:otherwise>
@@ -64,11 +64,11 @@
 								</c:otherwise>
 							</c:choose>						
 						</td>
-						<td><c:if test="${user.admin && (!tmp_user.admin || tmp_user.id == user.id)}">
-								<a href="/TurismoEnElMundoMarvel_Webapp/users/edit.do?id=${tmp_user.id}"
+						<td><c:if test="${usuario.esAdmin() && (!tmp_user.esAdmin() || tmp_user.getId() == usuario.getId())}">
+								<a href="/TurismoEnElMundoMarvel_Webapp/users/edit.do?id=${tmp_user.getId()}"
 									class="btn btn-light rounded-0" role="button"><i
 									class="bi bi-pencil-fill"></i></a>
-								<a href="/TurismoEnElMundoMarvel_Webapp/users/delete.do?id=${tmp_user.id}"
+								<a href="/TurismoEnElMundoMarvel_Webapp/users/delete.do?id=${tmp_user.getId()}"
 									class="btn btn-danger rounded" role="button"><i
 									class="bi bi-x-circle-fill"></i></a>
 							</c:if></td>

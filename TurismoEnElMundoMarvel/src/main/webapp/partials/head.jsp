@@ -1,5 +1,5 @@
 <meta charset="UTF-8">
-<title>Turismo en la Tierra Media</title>
+<title>Turismo en el Mundo Marvel</title>
 
 <link rel="shortcut icon" href="/turismo/assets/favicon.ico">
 

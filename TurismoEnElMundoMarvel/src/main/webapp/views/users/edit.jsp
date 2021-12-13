@@ -11,13 +11,14 @@
 
 	<main class="container">
 
-		<c:if test="${Usuario != null && !usuario.esValido()}">
+		<c:if test="${usuario != null && !usuario.esValido()}">
 			<div class="alert alert-danger">
-				<p>Se encontraron errores al crear el usuario.</p>
+				<p>Se encontraron errores al actualizar el usuario.</p>
 			</div>
 		</c:if>
 
-		<form action="/TurismoEnElMundoMarvel_Webapp/users/create.do" method="post">
+		<form action="/TurismoEnElMundoMarvel_Webapp/users/edit.do" method="post">
+			<input type="hidden" name="id" value="${usuario.getId()}">
 			<jsp:include page="/views/users/form.jsp"></jsp:include>
 		</form>
 	</main>

@@ -9,9 +9,9 @@
 	<label for="coins"
 		class='col-form-label ${tmp_user.getErrores().get("coins") != null ? "is-invalid" : "" }'>Monedas:</label>
 	<input class="form-control" type="number" id="coins" name="coins"
-		required value="${tmp_user.coins}"></input>
+		required value="${tmp_user.getDinero()}"></input>
 	<div class="invalid-feedback">
-		<c:out value='${tmp_user.errors.get("coins")}'></c:out>
+		<c:out value='${tmp_user.getErrores().get("coins")}'></c:out>
 	</div>
 </div>
 
@@ -34,6 +34,19 @@
 		<c:out value='${tmp_user.getErrores().get("password")}'></c:out>
 	</div>
 </div>
+
+<%-- Hacer una lista desplegable en vez del input en el div de "admin" que tenga dos opciones: "true" o "false" como String. --%>
+
+<div class="mb-3">
+	<label for="admin"
+		class='col-form-label ${tmp_user.getErrores().get("admin") != null ? "is-invalid" : "" }'>Admin:</label>
+		<input class="form-control" id="admin" name="admin"
+		required value="${tmp_user.esAdmin()}"></input>
+	<div class="invalid-feedback">
+		<c:out value='${tmp_user.getErrores().get("admin")}'></c:out>
+	</div>
+</div>
+
 
 <div>
 	<button type="submit" class="btn btn-primary">Guardar</button>
