@@ -42,9 +42,9 @@ public class EditPromotionServlet extends HttpServlet {
 		Integer id = Integer.parseInt(req.getParameter("id"));
 		String nombre = req.getParameter("name");
 		String tipo = req.getParameter("tipo");
-		
+		Integer descuento = Integer.parseInt(req.getParameter("descuento"));
 
-		Promocion promocion = promotionService.update(id, nombre, tipo);
+		Promocion promocion = promotionService.update(id, nombre, tipo, descuento);
 
 		if (promocion.esPromocion()) {
 			resp.sendRedirect("/turismo/promotions/index.do");

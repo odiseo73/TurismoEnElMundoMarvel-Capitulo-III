@@ -35,10 +35,11 @@ public class CreateUserServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
-		Double coins = Double.parseDouble(req.getParameter("coins"));
-		Double time = Double.parseDouble(req.getParameter("time"));
+		Double dinero = Double.parseDouble(req.getParameter("coins"));
+		Double tiempo = Double.parseDouble(req.getParameter("time"));
+		Boolean admin = Boolean.parseBoolean(req.getParameter("admin"));
 
-		Usuario tmp_user = userService.create(username, password, coins, time);
+		Usuario tmp_user = userService.create(username, password, dinero, tiempo, admin);
 		
 		if (tmp_user.esValido()) {
 			resp.sendRedirect("/turismo/users/index.do");

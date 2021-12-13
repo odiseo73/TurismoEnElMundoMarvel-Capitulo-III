@@ -2,9 +2,8 @@ package services;
 
 import java.util.List;
 
-import modelos.Atraccion;
 import modelos.Itinerario;
-import persistence.AtraccionDAO;
+
 import persistence.ItinerarioDAO;
 import persistence.commons.DAOFactory;
 
@@ -17,7 +16,7 @@ public class ItineraryService {
 	public Itinerario create(String user, String productosComprados, Double horasNecesarias, Double puntos) {
 		
 		Itinerario itinerario = new Itinerario(user,productosComprados,horasNecesarias,puntos);
-		if (!itinerario.getUsuario().isEmpty()) {
+		if (!itinerario.esValido()) {
 			DAOFactory.getItinerarioDAO().insert(itinerario);
 			// XXX: si no devuelve "1", es que hubo más errores
 		}
@@ -33,7 +32,7 @@ public class ItineraryService {
 
 		//no se como hacer este metodo
 
-		if (!itinerario.getUsuario().isEmpty()) {
+		if (!itinerario.esValido()) {
 			itinerarioDAO.update(itinerario);
 			// XXX: si no devuelve "1", es que hubo más errores
 		}

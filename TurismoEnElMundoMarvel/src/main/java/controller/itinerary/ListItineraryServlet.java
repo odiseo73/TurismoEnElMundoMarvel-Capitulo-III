@@ -1,5 +1,5 @@
 package controller.itinerary;
 
-public class EditItineraryServlet {
+public class ListItineraryServlet {
 
 }

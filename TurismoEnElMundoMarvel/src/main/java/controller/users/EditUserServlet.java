@@ -8,12 +8,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import modelos.Atraccion;
 import modelos.Usuario;
-import services.AttractionService;
 import services.UserService;
 
-@WebServlet("/attractions/edit.do")
+@WebServlet("/users/edit.do")
 public class EditUserServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 7598291131560345626L;
@@ -29,9 +27,9 @@ public class EditUserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Integer id = Integer.parseInt(req.getParameter("id"));
 
-		Usuario usuario = userService.find(id);
+		Usuario tmp_user = userService.find(id);
 		//crear metodo find
-		req.setAttribute("user", usuario);
+		req.setAttribute("tmp_user", tmp_user);
 
 		RequestDispatcher dispatcher = getServletContext()
 				.getRequestDispatcher("/views/users/edit.jsp");
@@ -43,17 +41,17 @@ public class EditUserServlet extends HttpServlet {
 		/*String username, String password, Double dinero, Double tiempoEnHoras*/
 		Integer id = Integer.parseInt(req.getParameter("id"));
 		String username = req.getParameter("username");
-		String password = req.getParameter("password");
-		Double dinero = Double.parseDouble(req.getParameter("dinero"));
-		Double tiempoEnHoras = Double.parseDouble(req.getParameter("tiempoEnHoras"));
+		Double dinero = Double.parseDouble(req.getParameter("coins"));
+		Double tiempoEnHoras = Double.parseDouble(req.getParameter("time"));
+		Boolean admin = Boolean.parseBoolean(req.getParameter("admin"));
 
-		Usuario usuario = userService.update(id, username, password, dinero, tiempoEnHoras);
+		Usuario tmp_user = userService.update(id, username, dinero, tiempoEnHoras,admin);
 		//crear metodo update
 
-		if (usuario.esValido()) {
+		if (tmp_user.esValido()) {
 			resp.sendRedirect("/turismo/users/index.do");
 		} else {
-			req.setAttribute("user", usuario);
+			req.setAttribute("tmp_user", tmp_user);
 
 			RequestDispatcher dispatcher = getServletContext()
 					.getRequestDispatcher("/views/users/edit.jsp");

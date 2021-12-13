@@ -13,11 +13,8 @@ public class Main {
 
 	public static void main(String[] args) throws SQLException, FileNotFoundException {
 	
-int i = 0;
-i++;
 
-System.out.println(i);
- 
+
 	}
 
 }

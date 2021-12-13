@@ -36,11 +36,12 @@ public class CreatePromotionServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		Integer id = Integer.parseInt(req.getParameter("id"));
+		
 		String nombre= req.getParameter("nombre");
 		String tipo= req.getParameter("tipo");
-
-		Promocion promocion = promotionService.create(id,nombre,tipo);
+		Integer descuento = Integer.parseInt(req.getParameter("descuento"));
+		
+		Promocion promocion = promotionService.create(nombre,tipo,descuento);
 		
 		if (promocion.esPromocion()) {
 			resp.sendRedirect("/turismo/promotions/index.do");

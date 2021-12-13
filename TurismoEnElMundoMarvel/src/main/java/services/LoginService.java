@@ -15,7 +15,6 @@ public class LoginService {
 		ItineraryService itineraryService = new ItineraryService();
 		Itinerario itinerario = itineraryService.find(usuario.getId());
 		usuario.setItinerario(itinerario);
-
 		if (usuario.isNull() || !usuario.checkPassword(password)) {
 			usuario = NullUsuario.build();
 		}

@@ -4,9 +4,11 @@ import java.util.List;
 
 import modelos.Atraccion;
 import modelos.Promocion;
+import modelos.PromocionAbsoluta;
 import persistence.AtraccionDAO;
 import persistence.PromocionDAO;
 import persistence.commons.DAOFactory;
+import utils.PromotionSelector;
 
 public class PromotionService {
 
@@ -14,9 +16,9 @@ public class PromotionService {
 		return DAOFactory.getPromocionDAO().findAll();
 	}
 
-	public Promocion create(Integer id,String nombre,String tipo) {
+	public Promocion create(String nombre,String tipo, Integer descuento) {
 
-		Promocion promocion = new Promocion(id,nombre,tipo);
+		Promocion promocion = PromotionSelector.clasificarPromocionSinId(nombre, tipo, descuento);
 
 		if (promocion.esPromocion()) {
 			PromocionDAO promocionDAO = DAOFactory.getPromocionDAO();
@@ -27,18 +29,20 @@ public class PromotionService {
 		return promocion;
 	}
 
-	public Promocion update(Integer id, String name, String tipo) {
+	public Promocion update(Integer id, String name, String tipo, Integer descuento) {
 
 		PromocionDAO promocionDAO = DAOFactory.getPromocionDAO();
 		Promocion promocion = promocionDAO.find(id);
-
+promocion.setNombre(name);
+promocion.setTipo(tipo);
+promocion.setDescuento(descuento);
 		//no se como hacer este metodo
 
 		return promocion;
 	}
 
 	public void delete(Integer id) {
-		Promocion promocion = new Promocion(id,null,null);
+		Promocion promocion = new PromocionAbsoluta(id,null,null,null);
 
 		PromocionDAO promocionDAO = DAOFactory.getPromocionDAO();
 		promocionDAO.delete(promocion);

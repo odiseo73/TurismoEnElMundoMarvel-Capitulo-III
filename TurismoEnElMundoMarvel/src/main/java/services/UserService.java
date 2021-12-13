@@ -13,10 +13,11 @@ public class UserService {
 		return DAOFactory.getUsuarioDAO().findAll();
 	}
 
-	public Usuario create(String username, String password, Double dinero, Double tiempoDisponible) {
-		//Usuario usuario = new Usuario(-1, username, password, coins, time, false);
-//		usuario.setPassword(password);
-		Usuario usuario = new Usuario(username,password,dinero, tiempoDisponible);
+	public Usuario create(String username, String password, Double dinero, Double tiempoDisponible, Boolean admin) {
+	
+
+		Usuario usuario = new Usuario(username,password,dinero, tiempoDisponible,admin);
+		usuario.setPassword(password);
 		if (usuario.esValido()) {
 			DAOFactory.getUsuarioDAO().insert(usuario);
 			// XXX: si no devuelve "1", es que hubo más errores
@@ -29,12 +30,14 @@ public class UserService {
 		return DAOFactory.getUsuarioDAO().find(id);
 	}
 
-	public Usuario update(Integer id, String username, String password, Double dinero, Double tiempoEnHoras) {
+	public Usuario update(Integer id, String username, Double dinero, Double tiempoEnHoras, Boolean admin) {
 		
 		UsuarioDAO usuarioDAO = DAOFactory.getUsuarioDAO();
 		Usuario usuario = usuarioDAO.find(id);
-
-		usuario.setPassword(password);
+usuario.setUsername(username);
+usuario.setDinero(dinero);
+usuario.setTiempo(tiempoEnHoras);
+usuario.setAdmin(admin);
 		//no se como hacerlo
 
 		if (usuario.esValido()) {

@@ -29,7 +29,6 @@ public class Usuario {
 		this.atraccionesCompradas = new LinkedList<Atraccion>();
 		this.itinerario = new Itinerario(this.id,this.getUsername(), "", 0, 0);
 		this.admin = admin;
-		this.setPassword(password);
 	}
 
 	public Usuario(Integer id, String username, String password, Double dinero, Double tiempoEnHoras,Boolean admin) {
@@ -154,10 +153,10 @@ public class Usuario {
 		errores = new HashMap<String, String>();
 
 		if (dineroDisponible < 0) {
-			errores.put("dineroDisponible", "No debe ser negativo");
+			errores.put("coins", "No debe ser negativo");
 		}
 		if (tiempoDisponible < 0) {
-			errores.put("tiempoDisponible", "No debe ser negativo");
+			errores.put("time", "No debe ser negativo");
 		}
 	}
 
@@ -178,6 +177,11 @@ public class Usuario {
 	public void setTiempo(Double tiempo) {
 		this.tiempoDisponible = tiempo;
 		
+	}
+
+	public void setAdmin(Boolean admin) {
+		
+		this.admin = admin;
 	}
 
 }

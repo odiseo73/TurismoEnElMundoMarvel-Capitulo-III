@@ -42,7 +42,7 @@ public class CreateItineraryServlet extends HttpServlet {
 
 		Itinerario tmp_it = itineraryService.create(user, prodComp, hsNec, puntos);
 		
-		if (!tmp_it.getUsuario().isEmpty()) {
+		if (!tmp_it.esValido()) {
 			resp.sendRedirect("/turismo/itinerarys/index.do");
 		} else {
 			req.setAttribute("tmp_it", tmp_it);

@@ -12,14 +12,18 @@ public class Itinerario {
 	private double puntos;
 	private HashMap<String,String> errores;
 
-	public Itinerario(Integer id, String username, String productosComprados, double horasNecesarias, double puntos) {
-		this.id = id;
+	public Itinerario(String username, String productosComprados, double horasNecesarias, double puntos) {
+		
 		this.username = username;
 		this.productosComprados = productosComprados;
 		this.horasNecesarias = horasNecesarias;
 		this.puntos = puntos;
 	}
-
+	public Itinerario(Integer id, String username, String productosComprados, double horasNecesarias, double puntos) {
+		this(username, productosComprados, horasNecesarias, puntos);
+		this.id = id;
+		
+	}
 	public String getUsername() {
 		return username;
 	}
