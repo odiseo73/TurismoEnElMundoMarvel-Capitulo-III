@@ -2,7 +2,9 @@
 <html>
 <head>
 <jsp:include page="partials/head.jsp"></jsp:include>
+<link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
 	<jsp:include page="partials/nav.jsp"></jsp:include>

@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+body {
+	background: #000000;
+}
+
+h1,div {
+	color: #8000ff;
+}
+
+#fondo{
+	background: #000000;
+}
+img {
+	margin-top: 1rem;
+	margin-bottom: 4rem;
+	font-size: 3.5rem;
+	text-align: center
+}

@@ -1,18 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <jsp:include page="partials/head.jsp"></jsp:include>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 	<div class="col-lg-5 mx-auto p-3 py-md-5">
 
 		<main>
-			<h1>Turismo en el Mundo Marvel</h1>
-
+			
+			<img class="d-block w-100"src="/TurismoEnElMundoMarvel/assets/img/logo1.png" alt="LogoMarvel.png">
 
 			<c:if test="${flash != null}">
 				<div class="alert alert-danger">
@@ -21,7 +22,7 @@
 					</p>
 				</div>
 			</c:if>
-			
+
 			<c:if test="${success != null}">
 				<div class="alert alert-success">
 					<p>
@@ -43,7 +44,7 @@
 				</div>
 
 				<div class="d-grid gap-2">
-					<button type="submit" class="btn btn-lg btn-primary">Ingresar</button>
+					<button type="submit" class="btn btn-danger">Ingresar</button>
 				</div>
 			</form>
 
