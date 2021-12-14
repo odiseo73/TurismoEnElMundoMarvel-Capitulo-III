@@ -4,17 +4,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="partials/head.jsp"></jsp:include>
-<link rel="stylesheet" href="styles.css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <jsp:include page="partials/head.jsp"></jsp:include>
+<link rel="stylesheet" href="loginStyle.css">
+ <title>Log in</title>
 </head>
 <body>
-
-	<div class="col-lg-5 mx-auto p-3 py-md-5">
-
 		<main>
 			
-			<img class="d-block w-100"src="/TurismoEnElMundoMarvel/assets/img/logo1.png" alt="LogoMarvel.png">
-
 			<c:if test="${flash != null}">
 				<div class="alert alert-danger">
 					<p>
@@ -32,23 +31,22 @@
 			</c:if>
 
 			<form action="login" method="post">
-
-				<div class="mb-3">
-					<label for="username" class="form-label">Usuario</label> <input
-						class="form-control" name="username">
+  <h3>Iniciar sesión</h3>
+				<div>
+					<label for="username" class="form-label">Usuario</label> 
+					<input class="form-control" type="text" name="username" placeholder="Usuario">
 				</div>
 
-				<div class="mb-3">
-					<label for="password" class="form-label">Contraseña</label> <input
-						type="password" class="form-control" name="password">
+				<div>
+					<label for="password" class="form-label">Contraseña</label> 
+					<input type="password" class="form-control" name="password" placeholder="Contraseña" >
 				</div>
 
-				<div class="d-grid gap-2">
+				<div>
 					<button type="submit" class="btn btn-danger">Ingresar</button>
 				</div>
 			</form>
 
 		</main>
-	</div>
 </body>
 </html>
