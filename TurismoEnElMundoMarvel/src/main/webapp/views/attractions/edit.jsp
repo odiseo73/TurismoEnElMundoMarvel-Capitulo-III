@@ -11,14 +11,14 @@
 
 	<main class="container">
 
-		<c:if test="${atraccion != null && !atraccion.esValida()}">
+		<c:if test="${attraction != null && !attraction.esValida()}">
 			<div class="alert alert-danger">
 				<p>Se encontraron errores al actualizar la atracción.</p>
 			</div>
 		</c:if>
 
 		<form action="/TurismoEnElMundoMarvel_Webapp/attractions/edit.do" method="post">
-			<input type="hidden" name="id" value="${attraction.id}">
+			<input type="hidden" name="id" value="${atraccion.getId()}">
 			<jsp:include page="/views/attractions/form.jsp"></jsp:include>
 		</form>
 	</main>

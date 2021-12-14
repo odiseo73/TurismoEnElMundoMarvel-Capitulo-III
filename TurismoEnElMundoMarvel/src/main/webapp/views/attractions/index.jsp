@@ -26,7 +26,13 @@
 				</p>
 			</div>
 		</c:if>
-
+		<c:if test="${success != null}">
+			<div class="alert alert-danger">
+				<p>
+					<c:out value="${success}" />
+				</p>
+			</div>
+		</c:if>
 		<div class="bg-light p-4 mb-3 rounded">
 			<h1>Estas son las atracciones del Mundo Marvel</h1>
 		</div>
@@ -53,9 +59,7 @@
 				<c:forEach items="${atracciones}" var="atraccion">
 					<tr>
 						<td><strong><c:out value="${atraccion.getNombre()}"></c:out></strong>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-								Cras pretium eros urna. Sed quis erat congue, bibendum tortor
-								malesuada, iaculis diam. Ut ut imperdiet sapien.</p></td>
+							<p><c:out value="${atraccion.getDescripcion()}"></c:out></p></td>
 						<td><c:out value="${atraccion.getPrecio()}"></c:out></td>
 						<td><c:out value="${atraccion.getTiempoEnHoras()}"></c:out></td>
 						<td><c:out value="${atraccion.getCupoDisponible()}"></c:out></td>
@@ -65,13 +69,14 @@
 									href="/TurismoEnElMundoMarvel_Webapp/attractions/edit.do?id=${atraccion.getId()}"
 									class="btn btn-light rounded-0" role="button"><i
 									class="bi bi-pencil-fill"></i></a>
-								<a href="/TurismoEnElMundoMarvel_Webapp/attractions/delete.do?id=${atraccion.getId()}"
+								<a
+									href="/TurismoEnElMundoMarvel_Webapp/attractions/delete.do?id=${atraccion.getId()}"
 									class="btn btn-danger rounded" role="button"><i
 									class="bi bi-x-circle-fill"></i></a>
 							</c:if> <c:choose>
 
 								<c:when
-									test="${usuario.tieneDinero(atraccion) && usuario.tieneTiempo(atraccion) && atraccion.verificarCupo()}">
+									test="${usuario.tieneDinero(atraccion) && usuario.tieneTiempo(atraccion) && !usuario.tieneComprado(atraccion) && atraccion.verificarCupo()}">
 									<a
 										href="/TurismoEnElMundoMarvel_Webapp/attractions/buy.do?id=${atraccion.getId()}"
 										class="btn btn-success rounded" role="button">Comprar</a>

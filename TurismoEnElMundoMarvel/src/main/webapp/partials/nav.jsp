@@ -15,7 +15,7 @@
 				<li class="nav-item"><a class="nav-link active"
 					aria-current="page"
 					href="/TurismoEnElMundoMarvel_Webapp/attractions/index.do">Atracciones</a></li>
-					<li class="nav-item"><a class="nav-link active"
+				<li class="nav-item"><a class="nav-link active"
 					aria-current="page"
 					href="/TurismoEnElMundoMarvel_Webapp/promotions/index.do">Promociones</a></li>
 				<c:if test="${usuario.esAdmin()}">
@@ -23,6 +23,9 @@
 						aria-current="page"
 						href="/TurismoEnElMundoMarvel_Webapp/users/index.do">Usuarios</a></li>
 				</c:if>
+				<li class="nav-item"><a class="nav-link active"
+					aria-current="page"
+					href="/TurismoEnElMundoMarvel_Webapp/itinerary/index.do">Itinerario</a></li>
 
 			</ul>
 

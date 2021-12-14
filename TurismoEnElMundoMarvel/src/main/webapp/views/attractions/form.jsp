@@ -7,29 +7,38 @@
 	</div>
 	<div class="mb-3">
 		<label for="cost"
-			class='col-form-label ${atraccion.getErrors().get("precio") != null ? "is-invalid" : "" }'>Costo:</label>
+			class='col-form-label ${atraccion.getErrores().get("precio") != null ? "is-invalid" : "" }'>Costo:</label>
 		<input class="form-control" type="number" id="cost" name="cost"
-			required value="${atraccion.precio}"></input>
+			required value="${atraccion.getPrecio()}"></input>
 		<div class="invalid-feedback">
-			<c:out value='${atraccion.errors.get("precio")}'></c:out>
+			<c:out value='${atraccion.getErrores().get("precio")}'></c:out>
 		</div>
 	</div>
 	<div class="mb-3">
 		<label for="duration"
-			class='col-form-label ${atraccion.errors.get("tiempoEnHoras") != null ? "is-invalid" : "" }'>Duration:</label>
+			class='col-form-label ${atraccion.getErrores().get("tiempoEnHoras") != null ? "is-invalid" : "" }'>Duration:</label>
 		<input class="form-control" type="number" id="duration" name="duration"
-			required value="${atraccion.tiempoEnHoras}"></input>
+			required value="${atraccion.getTiempoEnHoras()}"></input>
 		<div class="invalid-feedback">
-			<c:out value='${atraccion.errors.get("tiempoEnHoras")}'></c:out>
+			<c:out value='${atraccion.getErrores().get("tiempoEnHoras")}'></c:out>
 		</div>
 	</div>
 	<div class="mb-3">
 		<label for="capacity"
-			class='col-form-label ${atraccion.errores.get("cupoDisponible") != null ? "is-invalid" : "" }'>Capacity:</label>
+			class='col-form-label ${atraccion.getErrores().get("cupoDisponible") != null ? "is-invalid" : "" }'>Capacity:</label>
 		<input class="form-control" type="number" id="capacity" name="capacity"
-			required value="${atraccion.cupoDisponible}"></input>
+			required value="${atraccion.getCupoDisponible()}"></input>
 		<div class="invalid-feedback">
-			<c:out value='${atraccion.errores.get("cupoDisponible")}'></c:out>
+			<c:out value='${atraccion.getErrores().get("cupoDisponible")}'></c:out>
+		</div>
+	</div>
+	<div class="mb-3">
+		<label for="description"
+			class='col-form-label ${atraccion.getErrores().get("descripcion") != null ? "is-invalid" : "" }'>Description:</label>
+		<input class="form-control" type="text" id="description" name="description"
+			required value="${atraccion.getDescripcion()}"></input>
+		<div class="invalid-feedback">
+			<c:out value='${atraccion.getErrores().get("descripcion")}'></c:out>
 		</div>
 	</div>
 </div>
