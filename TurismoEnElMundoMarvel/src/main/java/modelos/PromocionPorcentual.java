@@ -25,12 +25,6 @@ public class PromocionPorcentual extends Promocion {
 	}
 
 
-	public void restarCupo() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 	public boolean compararNombresIguales(List<Atraccion> atraccionesCompradas, Producto productoOfrecido) {
 		// TODO Auto-generated method stub
 		return false;

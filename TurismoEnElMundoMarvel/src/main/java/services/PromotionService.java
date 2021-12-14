@@ -36,13 +36,14 @@ public class PromotionService {
 		return promocion;
 	}
 
-	public Promocion update(Integer id, String name, String tipo, Integer descuento) {
+	public Promocion update(Integer id, String name, String tipo, Integer descuento, List<String> atracciones) {
 
 		PromocionDAO promocionDAO = DAOFactory.getPromocionDAO();
 		Promocion promocion = promocionDAO.find(id);
-promocion.setNombre(name);
-promocion.setTipo(tipo);
-promocion.setDescuento(descuento);
+		promocion.setNombre(name);
+		promocion.setTipo(tipo);
+		promocion.setDescuento(descuento);
+		promocionDAO.update(promocion);
 		//no se como hacer este metodo
 
 		return promocion;
@@ -56,7 +57,17 @@ promocion.setDescuento(descuento);
 	}
 
 	public Promocion find(Integer id) {
-		return DAOFactory.getPromocionDAO().find(id);
+		Promocion promocion = DAOFactory.getPromocionDAO().find(id);
+		List<Integer> id_atracciones = DAOFactory.getAtraccion_PromocionDAO().find(id);
+		List<Atraccion> atracciones = DAOFactory.getAtraccionDAO().findAll();
+		for (Atraccion atraccion : atracciones) {
+			for (Integer id_atraccion : id_atracciones) {
+				if(atraccion.getId().equals(id_atraccion)) {
+					promocion.agregarAtraccion(atraccion);
+				}
+			}
+		}
+		return promocion;
 	}
 
 }

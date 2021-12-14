@@ -10,7 +10,7 @@ public class NullAtraccion extends Atraccion {
 	}
 
 	public NullAtraccion() {
-		super(0, "", 0.0, 0.0, 0);
+		super(0, "", 0.0, 0.0, 0,"");
 	}
 	
 	@Override

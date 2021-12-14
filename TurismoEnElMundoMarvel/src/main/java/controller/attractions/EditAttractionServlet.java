@@ -28,7 +28,7 @@ public class EditAttractionServlet extends HttpServlet {
 		Integer id = Integer.parseInt(req.getParameter("id"));
 
 		Atraccion atraccion = attractionService.find(id);
-		req.setAttribute("attraction", atraccion);
+		req.setAttribute("atraccion", atraccion);
 
 		RequestDispatcher dispatcher = getServletContext()
 				.getRequestDispatcher("/views/attractions/edit.jsp");
@@ -43,13 +43,14 @@ public class EditAttractionServlet extends HttpServlet {
 		// Integer cost = req.getParameter("cost").trim() == "" ? null : Integer.parseInt(req.getParameter("cost"));
 		Double duration = Double.parseDouble(req.getParameter("duration"));
 		Integer capacity = Integer.parseInt(req.getParameter("capacity"));
-
-		Atraccion atraccion = attractionService.update(id, nombre, precio, duration, capacity);
+		String description = req.getParameter("description");
+		
+		Atraccion atraccion = attractionService.update(id, nombre, precio, duration, capacity,description);
 
 		if (atraccion.esValida()) {
 			resp.sendRedirect("/turismo/attractions/index.do");
 		} else {
-			req.setAttribute("attraction", atraccion);
+			req.setAttribute("atraccion", atraccion);
 
 			RequestDispatcher dispatcher = getServletContext()
 					.getRequestDispatcher("/views/attractions/edit.jsp");

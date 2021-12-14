@@ -5,13 +5,13 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class Promocion implements Producto {
+public abstract class Promocion extends Producto {
 
 	private String nombre;
 	private List<Atraccion> atracciones;
 	private Integer id;
 	private String tipo;
-	private Integer descuento;
+	protected Integer descuento;
 	protected HashMap<String,String> errores;
 
 	public Promocion(String nombre, String tipo) {
@@ -66,23 +66,6 @@ public abstract class Promocion implements Producto {
 		return nombreAtracciones;
 	}
 
-	public boolean verificarCupo(List<Atraccion> atraccionesCompradas) {
-		boolean hayCupo = true;
-		List<Atraccion> atraccionesDePromocion = this.getAtracciones();
-
-		for (Atraccion atraccion : atraccionesCompradas) {
-			for (Atraccion atraccionDePromo : atraccionesDePromocion) {
-				if (atraccion.equals(atraccionDePromo)) {
-					if (!atraccion.verificarCupo()) {
-						hayCupo = false;
-					}
-
-				}
-
-			}
-		}
-		return hayCupo;
-	}
 	public boolean verificarCupo() {
 		boolean hayCupo = true;
 		List<Atraccion> atraccionesDePromocion = this.getAtracciones();
@@ -98,8 +81,8 @@ public abstract class Promocion implements Producto {
 		return hayCupo;
 	}
 
-	public void restarCupo(List<Atraccion> atraccionesCompradas) {
-		for (Atraccion atraccion : atraccionesCompradas) {
+	public void restarCupo() {
+		for (Atraccion atraccion : this.atracciones) {
 			atraccion.restarCupo();
 		}
 	}

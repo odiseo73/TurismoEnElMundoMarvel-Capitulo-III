@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -79,17 +80,20 @@ public class Atraccion_PromocionDAOImpl {
 		}
 	}
 
-	public Integer find(Integer id_promocion) {
+	public List<Integer> find(Integer id_promocion) {
 		try {
-			String sql = "SELECT * FROM ATRACCIONES_PROMOCIONES WHERE ID_ATRACCION = ?";
+			String sql = "SELECT * FROM ATRACCIONES_PROMOCIONES WHERE ID_PROMOCION = ?";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, id_promocion);
 			ResultSet resultados = statement.executeQuery();
+			List<Integer> id_atracciones = new ArrayList<Integer>();
+			while (resultados.next()) {
+				Integer id_atraccion = resultados.getInt("id_atraccion");
+				id_atracciones.add(id_atraccion);
+			}
 
-			Integer id_atraccion = resultados.getInt("id_atraccion");
-
-			return id_atraccion;
+			return id_atracciones;
 		} catch (Exception e) {
 			throw new MissingDataException(e);
 		}

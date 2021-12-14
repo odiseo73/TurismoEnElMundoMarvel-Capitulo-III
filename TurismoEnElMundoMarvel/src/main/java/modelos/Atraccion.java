@@ -6,27 +6,29 @@ import java.util.Objects;
 
 import comparador.ComparadorPorNombres;
 
-public class Atraccion implements Producto {
+public class Atraccion extends Producto {
 
 	private Integer id;
 	private String nombre;
 	private Double precio;
 	private Double tiempoEnHoras;
 	private final int CUPO_INICIAL;
+	private String descripcion;
 	private Integer cupoDisponible;
 	private HashMap<String,String> errores;
 
 
-	public Atraccion(String nombre, Double precio, Double tiempoEnHoras, Integer cupo) {
+	public Atraccion(String nombre, Double precio, Double tiempoEnHoras, Integer cupo, String descripcion) {
 		super();
 		this.nombre = nombre;
 		this.precio = precio;
 		this.tiempoEnHoras = tiempoEnHoras;
 		this.CUPO_INICIAL = cupo;
 		this.cupoDisponible = cupo;
+		this.descripcion = descripcion;
 	}
-	public Atraccion(Integer id, String nombre, Double precio, Double tiempoEnHoras, Integer cupo) {
-		this(nombre,precio,tiempoEnHoras,cupo);
+	public Atraccion(Integer id, String nombre, Double precio, Double tiempoEnHoras, Integer cupo, String descripcion) {
+		this(nombre,precio,tiempoEnHoras,cupo,descripcion);
 		this.id = id;
 		
 	}
@@ -54,6 +56,9 @@ public class Atraccion implements Producto {
 		return CUPO_INICIAL;
 	}
 
+	public HashMap<String, String> getErrores() {
+		return errores;
+	}
 	public int getCupoDisponible() {
 
 		return cupoDisponible;
@@ -62,6 +67,13 @@ public class Atraccion implements Producto {
 	public double getPrecio() {
 
 		return precio;
+	}
+	
+	public String getDescripcion() {
+		return descripcion;
+	}
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 	public boolean compararNombresIguales(List<Atraccion> atraccionesCompradas, Producto producto) {
 		boolean bandera = false;
@@ -116,15 +128,6 @@ public class Atraccion implements Producto {
 		return id;
 	}
 
-	public List<Atraccion> getAtracciones() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public double getPrecioConDescuento() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 	public boolean esValida() {
 		validar();
 		

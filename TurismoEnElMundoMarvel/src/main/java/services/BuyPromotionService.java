@@ -1,28 +1,27 @@
 package services;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import modelos.Atraccion;
 import modelos.Promocion;
 import modelos.Usuario;
 import persistence.AtraccionDAO;
-import persistence.PromocionDAO;
 import persistence.UsuarioDAO;
 import persistence.commons.DAOFactory;
 
 public class BuyPromotionService {
 
-	PromocionDAO promocionDAO = DAOFactory.getPromocionDAO();
 	UsuarioDAO usuarioDAO = DAOFactory.getUsuarioDAO();
-
+	AtraccionDAO atraccionDAO = DAOFactory.getAtraccionDAO();
 	public Map<String, String> buy(Integer userId, Integer promotionId) {
 		Map<String, String> errors = new HashMap<String, String>();
-
+PromotionService promotionService = new PromotionService();
 		Usuario usuario = usuarioDAO.find(userId);
-		Promocion promocion = promocionDAO.find(promotionId);
+		Promocion promocion = promotionService.find(promotionId);
 
-		if (promocion.verificarCupo(null)) {
+		if (!promocion.verificarCupo()) {
 			errors.put("Promocion", "No hay cupo para esta promocion");
 		}
 		
@@ -36,8 +35,10 @@ public class BuyPromotionService {
 		if (errors.isEmpty()) {
 			usuario.comprarProducto(promocion);
 			promocion.restarCupo();
-
-			promocionDAO.update(promocion);
+			List<Atraccion> atraccionesDePromo = promocion.getAtracciones();
+			for (Atraccion atraccion : atraccionesDePromo) {
+				atraccionDAO.update(atraccion);
+			}
 			usuarioDAO.update(usuario);
 		}
 		

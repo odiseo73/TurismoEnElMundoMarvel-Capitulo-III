@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import modelos.Usuario;
 import persistence.commons.DAOFactory;
 import services.BuyAttractionService;
+import services.UserService;
 
 @WebServlet("/attractions/buy.do")
 public class BuyAttractionServlet extends HttpServlet {
@@ -32,7 +33,8 @@ public class BuyAttractionServlet extends HttpServlet {
 		Usuario user = (Usuario) req.getSession().getAttribute("usuario");
 		Map<String, String> errors = buyAttractionService.buy(user.getId(), attractionId);
 		
-		Usuario user2 = DAOFactory.getUsuarioDAO().find(user.getId());
+		UserService userService = new UserService();
+		Usuario user2 = userService.find(user.getId());;
 		req.getSession().setAttribute("usuario", user2);
 		
 		if (errors.isEmpty()) {

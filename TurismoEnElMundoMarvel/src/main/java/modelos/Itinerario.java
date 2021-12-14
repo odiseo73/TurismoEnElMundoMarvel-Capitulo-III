@@ -1,5 +1,6 @@
 package modelos;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -8,18 +9,18 @@ public class Itinerario {
 	private Integer id;
 	private String username;
 	private String productosComprados;
-	private double horasNecesarias;
-	private double puntos;
+	private Double horasNecesarias;
+	private Double puntos;
 	private HashMap<String,String> errores;
 
-	public Itinerario(String username, String productosComprados, double horasNecesarias, double puntos) {
+	public Itinerario(String username, String productosComprados, Double horasNecesarias, Double puntos) {
 		
 		this.username = username;
 		this.productosComprados = productosComprados;
 		this.horasNecesarias = horasNecesarias;
 		this.puntos = puntos;
 	}
-	public Itinerario(Integer id, String username, String productosComprados, double horasNecesarias, double puntos) {
+	public Itinerario(Integer id, String username, String productosComprados, Double horasNecesarias, Double puntos) {
 		this(username, productosComprados, horasNecesarias, puntos);
 		this.id = id;
 		
@@ -29,7 +30,11 @@ public class Itinerario {
 	}
 
 	public String getProductos() {
-		return productosComprados;
+		return this.productosComprados;
+	}
+	public String [] getProductosArray() {
+		String [] productosCompradosString = productosComprados.split(",");
+		return productosCompradosString;
 	}
 	public Integer getId() {
 		return id;
@@ -43,19 +48,22 @@ public class Itinerario {
 		this.username = username;
 	}
 
-	public void setHorasNecesarias(double horasNecesarias) {
+	public void setHorasNecesarias(Double horasNecesarias) {
 		this.horasNecesarias = horasNecesarias;
 	}
 
-	public void setPuntos(double puntos) {
+	public void setPuntos(Double puntos) {
 		this.puntos = puntos;
 	}
 
-	public double getHorasNecesarias() {
+	public void setProductosComprados(String productosComprados) {
+		this.productosComprados = productosComprados;
+	}
+	public Double getHorasNecesarias() {
 		return horasNecesarias;
 	}
 
-	public double getPuntos() {
+	public Double getPuntos() {
 		return puntos;
 	}
 

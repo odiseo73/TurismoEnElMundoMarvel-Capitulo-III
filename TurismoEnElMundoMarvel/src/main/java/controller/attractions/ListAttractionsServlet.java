@@ -24,7 +24,7 @@ public class ListAttractionsServlet extends HttpServlet implements Servlet {
 		super.init();
 		this.attractionService = new AttractionService();
 	}
-
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {

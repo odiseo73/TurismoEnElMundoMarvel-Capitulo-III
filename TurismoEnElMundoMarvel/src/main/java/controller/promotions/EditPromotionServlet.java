@@ -1,6 +1,7 @@
 package controller.promotions;
 
 import java.io.IOException;
+import java.util.List;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -32,8 +33,7 @@ public class EditPromotionServlet extends HttpServlet {
 		Promocion promocion = promotionService.find(id);
 		req.setAttribute("promotion", promocion);
 
-		RequestDispatcher dispatcher = getServletContext()
-				.getRequestDispatcher("/views/promotions/edit.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/promotions/edit.jsp");
 		dispatcher.forward(req, resp);
 	}
 
@@ -43,16 +43,16 @@ public class EditPromotionServlet extends HttpServlet {
 		String nombre = req.getParameter("name");
 		String tipo = req.getParameter("tipo");
 		Integer descuento = Integer.parseInt(req.getParameter("descuento"));
+		List<String> atracciones = null;
 
-		Promocion promocion = promotionService.update(id, nombre, tipo, descuento);
+		Promocion promocion = promotionService.update(id, nombre, tipo, descuento, atracciones);
 
 		if (promocion.esPromocion()) {
 			resp.sendRedirect("/turismo/promotions/index.do");
 		} else {
 			req.setAttribute("promotion", promocion);
 
-			RequestDispatcher dispatcher = getServletContext()
-					.getRequestDispatcher("/views/promotions/edit.jsp");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/promotions/edit.jsp");
 			dispatcher.forward(req, resp);
 		}
 	}

@@ -6,6 +6,7 @@ import java.util.Map;
 import modelos.Atraccion;
 import modelos.Usuario;
 import persistence.AtraccionDAO;
+import persistence.ItinerarioDAO;
 import persistence.UsuarioDAO;
 import persistence.commons.DAOFactory;
 
@@ -13,11 +14,12 @@ public class BuyAttractionService {
 
 	AtraccionDAO atraccionDAO = DAOFactory.getAtraccionDAO();
 	UsuarioDAO usuarioDAO = DAOFactory.getUsuarioDAO();
-
+ItinerarioDAO itinerarioDAO = DAOFactory.getItinerarioDAO();
 	public Map<String, String> buy(Integer userId, Integer attractionId) {
 		Map<String, String> errors = new HashMap<String, String>();
 
-		Usuario usuario = usuarioDAO.find(userId);
+		UserService userService = new UserService();
+		Usuario usuario = userService.find(userId);
 		Atraccion atraccion = atraccionDAO.find(attractionId);
 
 		if (!atraccion.verificarCupo()) {
@@ -35,6 +37,8 @@ public class BuyAttractionService {
 			atraccion.restarCupo();
 
 			atraccionDAO.update(atraccion);
+			usuario.setProductosAlItinerario();
+			itinerarioDAO.update(usuario.getItinerario());
 			usuarioDAO.update(usuario);
 		}
 

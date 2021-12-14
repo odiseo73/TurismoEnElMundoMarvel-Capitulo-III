@@ -30,7 +30,7 @@ public class BuyPromotionServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		Integer promotionId = Integer.parseInt(req.getParameter("id"));
-		Usuario user = (Usuario) req.getSession().getAttribute("user");
+		Usuario user = (Usuario) req.getSession().getAttribute("usuario");
 		Map<String, String> errors = buyPromotionService.buy(user.getId(), promotionId);
 		
 		Usuario user2 = DAOFactory.getUsuarioDAO().find(user.getId());
@@ -39,7 +39,7 @@ public class BuyPromotionServlet extends HttpServlet {
 		if (errors.isEmpty()) {
 			req.setAttribute("success", "¡Gracias por comprar!");
 		} else {
-			req.setAttribute("errors", errors);
+			req.setAttribute("errores", errors);
 			req.setAttribute("flash", "No ha podido realizarse la compra");
 		}
 

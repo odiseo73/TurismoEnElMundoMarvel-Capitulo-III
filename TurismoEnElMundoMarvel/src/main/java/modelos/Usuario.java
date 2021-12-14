@@ -15,11 +15,11 @@ public class Usuario {
 	private double tiempoDisponible;
 	private double dineroDisponible;
 	private List<Atraccion> atraccionesCompradas;
+	private List<Producto> productosComprados;
 	private HashMap<String, String> errores;
 	private Itinerario itinerario;
 	private String password;
 	private Boolean admin;
-	// private List<Atraccion> atraccionesCompradas;
 
 	public Usuario(String username, String password, Double dinero, Double tiempoEnHoras, Boolean admin) {
 		this.username = username;
@@ -27,8 +27,9 @@ public class Usuario {
 		this.tiempoDisponible = tiempoEnHoras;
 		this.dineroDisponible = dinero;
 		this.atraccionesCompradas = new LinkedList<Atraccion>();
-		this.itinerario = new Itinerario(this.id,this.getUsername(), "", 0, 0);
+		this.itinerario = new Itinerario(this.id,this.getUsername(), "", 0.0, 0.0);
 		this.admin = admin;
+		this.productosComprados = new LinkedList<Producto>();
 	}
 
 	public Usuario(Integer id, String username, String password, Double dinero, Double tiempoEnHoras,Boolean admin) {
@@ -56,6 +57,15 @@ public class Usuario {
 	public int getId() {
 		return id;
 	}
+	
+	public List<Producto> getProductosComprados() {
+		return productosComprados;
+	}
+
+	public void setProductosComprados(List<Producto> productosComprados) {
+		this.productosComprados = productosComprados;
+	}
+
 	public boolean checkPassword(String password) {
 		// this.password en realidad es el hash del password
 		return Crypt.match(password, this.password);
@@ -76,21 +86,24 @@ public class Usuario {
 
 	public boolean tieneComprado(Producto productoOfrecido) {
 		boolean bandera = false;
+		for (Producto producto : productosComprados) {
 		if (productoOfrecido.esPromocion()) {
 			for (Atraccion atraccion : productoOfrecido.getAtracciones()) {
-				if (atraccion.compararNombresIguales(this.atraccionesCompradas, atraccion)) {
+				if (atraccion.getId().equals(productoOfrecido.getId())) {
 					bandera = true;
 				}
 			}
 		} else {
-			if (productoOfrecido.compararNombresIguales(this.atraccionesCompradas, productoOfrecido)) {
+			if (producto.getId().equals(productoOfrecido.getId())) {
 				bandera = true;
 			}
+		}
 		}
 		return bandera;
 	}
 
 	public void setAtraccionesCompradas(List<Producto> productosComprados) {
+		
 		for (Producto productoComprado : productosComprados) {
 			if (productoComprado.esPromocion()) {
 				for (Atraccion atraccion : productoComprado.getAtracciones()) {
@@ -106,7 +119,24 @@ public class Usuario {
 	public List<Atraccion> getAtraccionesCompradas() {
 		return atraccionesCompradas;
 	}
-
+public void setProductosAlItinerario() {
+	Double horasNecesarias = 0.0;
+	Double puntos = 0.0;
+	String productosAlItinerario = "";
+	for (Producto producto : productosComprados) {
+		productosAlItinerario = producto.getNombre() + ",";
+		horasNecesarias += producto.getTiempoEnHoras();
+		if(producto.esPromocion()) {
+			puntos += producto.getPrecioConDescuento();
+		} else {
+			puntos += producto.getPrecio();
+		}
+		
+	}
+	this.itinerario.setHorasNecesarias(horasNecesarias);
+	this.itinerario.setPuntos(puntos);
+	this.itinerario.setProductosComprados(productosAlItinerario);
+}
 	public void comprarProducto(Producto producto) {
 
 		
@@ -115,12 +145,12 @@ public class Usuario {
 		if (producto.esPromocion()) {
 			this.dineroDisponible -= producto.getPrecioConDescuento();
 			for (Atraccion atraccion : producto.getAtracciones()) {
-				this.atraccionesCompradas.add(atraccion);
+				this.productosComprados.add(atraccion);
 			}
 		}
 		if (!producto.esPromocion()) {
 			this.dineroDisponible -= producto.getPrecio();
-			atraccionesCompradas.add((Atraccion) producto);
+			this.productosComprados.add(producto);
 		}
 	}
 

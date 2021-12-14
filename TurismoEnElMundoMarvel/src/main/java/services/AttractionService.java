@@ -12,9 +12,9 @@ public class AttractionService {
 		return DAOFactory.getAtraccionDAO().findAll();
 	}
 
-	public Atraccion create(String nombre, Double cost, Double duration, Integer capacity) {
+	public Atraccion create(String nombre, Double cost, Double duration, Integer capacity, String descripcion) {
 
-		Atraccion atraccion = new Atraccion(nombre, cost, duration, capacity);
+		Atraccion atraccion = new Atraccion(nombre, cost, duration, capacity, descripcion);
 
 		if (atraccion.esValida()) {
 			AtraccionDAO atraccionDAO = DAOFactory.getAtraccionDAO();
@@ -25,16 +25,18 @@ public class AttractionService {
 		return atraccion;
 	}
 
-	public Atraccion update(Integer id, String name, Double cost, Double duration, Integer capacity) {
+	public Atraccion update(Integer id, String name, Double cost, Double duration, Integer capacity,
+			String descripcion) {
 
 		AtraccionDAO atraccionDAO = DAOFactory.getAtraccionDAO();
 		Atraccion atraccion = atraccionDAO.find(id);
 
 		atraccion.setNombre(name);
-		atraccion.setPrecio(cost);;
+		atraccion.setPrecio(cost);
+		
 		atraccion.setTiempoEnHoras(duration);
 		atraccion.setCupoDisponible(capacity);
-
+		atraccion.setDescripcion(descripcion);
 		if (atraccion.esValida()) {
 			atraccionDAO.update(atraccion);
 			// XXX: si no devuelve "1", es que hubo más errores
@@ -44,7 +46,7 @@ public class AttractionService {
 	}
 
 	public void delete(Integer id) {
-		Atraccion atraccion = new Atraccion(id, null, null, null, null);
+		Atraccion atraccion = new Atraccion(id, null, null, null, null, null);
 
 		AtraccionDAO atraccionDAO = DAOFactory.getAtraccionDAO();
 		atraccionDAO.delete(atraccion);

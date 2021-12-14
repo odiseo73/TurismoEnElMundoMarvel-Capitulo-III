@@ -21,13 +21,14 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 	public int update(Atraccion atraccion) {
 		try {
 			Connection connection = ConnectionProvider.getConnection();
-			String sql = "UPDATE ATRACCIONES SET NOMBRE = ?, PRECIO = ?, TIEMPOENHORAS = ?, CUPODISPONIBLE = ? WHERE ID_ATRACCIONES = ?";
+			String sql = "UPDATE ATRACCIONES SET NOMBRE = ?, PRECIO = ?, TIEMPOENHORAS = ?, CUPODISPONIBLE = ?, DESCRIPCION = ? WHERE ID_ATRACCIONES = ?";
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, atraccion.getNombre());
 			statement.setDouble(2, atraccion.getPrecio());
 			statement.setDouble(3, atraccion.getTiempoEnHoras());
 			statement.setInt(4, atraccion.getCupoDisponible());
-			statement.setInt(5, atraccion.getId());
+			statement.setString(5, atraccion.getDescripcion());
+			statement.setInt(6, atraccion.getId());
 
 			int rows = statement.executeUpdate();
 
@@ -65,20 +66,22 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 		Double precio = result.getDouble("precio");
 		Integer cupo = result.getInt("cupoDisponible");
 		Double tiempo = result.getDouble("tiempoEnHoras");
+		String descripcion = result.getString("descripcion");
 
-		return new Atraccion(id, nombre, precio, tiempo, cupo);
+		return new Atraccion(id, nombre, precio, tiempo, cupo,descripcion);
 	}
 
 	@Override
 	public int insert(Atraccion atraccion) {
 		try {
 			Connection connection = ConnectionProvider.getConnection();
-			String sql = "INSERT INTO ATRACCIONES (NOMBRE, PRECIO, TIEMPOENHORAS, CUPODISPONIBLE) VALUES (?,?,?,?)";
+			String sql = "INSERT INTO ATRACCIONES (NOMBRE, PRECIO, TIEMPOENHORAS, CUPODISPONIBLE, DESCRIPCION) VALUES (?,?,?,?,?)";
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, atraccion.getNombre());
 			statement.setDouble(2, atraccion.getPrecio());
 			statement.setDouble(3, atraccion.getTiempoEnHoras());
 			statement.setDouble(4, atraccion.getCupoDisponible());
+			statement.setString(5, atraccion.getDescripcion());
 			int rows = statement.executeUpdate();
 
 			return rows;

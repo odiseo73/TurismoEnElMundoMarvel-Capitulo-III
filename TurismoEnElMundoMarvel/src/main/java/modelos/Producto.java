@@ -2,17 +2,38 @@ package modelos;
 
 import java.util.List;
 
-public interface Producto {
-	double getPrecio();
-double getPrecioConDescuento();
-	double getTiempoEnHoras();
-	 void restarCupo();
+public abstract class  Producto {
+	double getPrecio() {
+		return 0;
+		
+	}
+double getPrecioConDescuento() {
+	return 0;
+}
+	double getTiempoEnHoras() {
+		return 0;
+	}
+	public void restarCupo() {
+	}
 
-	 String getNombre();
-	
-	 boolean esPromocion();
-	 boolean compararNombresIguales(List<Atraccion> atraccionesCompradas, Producto productoOfrecido);
+public	 String getNombre() {
+		return null;
+	}
+	public Integer getId() {
+		return null;
+		
+	}
+	public	 boolean esPromocion() {
+		return false;
+	}
+	 boolean compararNombresIguales(List<Atraccion> atraccionesCompradas, Producto productoOfrecido) {
+		return false;
+	}
 
-	List<Atraccion> getAtracciones();
-	boolean isNull();
+public	List<Atraccion> getAtracciones() {
+		return null;
+	}
+	boolean isNull() {
+		return false;
+	}
 }
