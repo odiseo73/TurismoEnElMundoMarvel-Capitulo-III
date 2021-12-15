@@ -26,7 +26,13 @@
 				</p>
 			</div>
 		</c:if>
-
+<c:if test="${success != null}">
+				<div class="alert alert-success">
+					<p>
+						<c:out value="${success}" />
+					</p>
+				</div>
+			</c:if>
 		<div class="bg-light p-4 mb-3 rounded">
 			<h1>Usuarios</h1>
 		</div>
