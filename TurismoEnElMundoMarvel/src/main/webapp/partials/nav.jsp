@@ -22,11 +22,15 @@
 					<li class="nav-item"><a class="nav-link active"
 						aria-current="page"
 						href="/TurismoEnElMundoMarvel_Webapp/users/index.do">Usuarios</a></li>
+							<li class="nav-item"><a class="nav-link active"
+						aria-current="page"
+						href="/TurismoEnElMundoMarvel_Webapp/itineraries/index.do">Itinerarios</a></li>
 				</c:if>
+				<c:if test="${!usuario.esAdmin()}">
 				<li class="nav-item"><a class="nav-link active"
 					aria-current="page"
 					href="/TurismoEnElMundoMarvel_Webapp/itinerary/index.do">Itinerario</a></li>
-
+					</c:if>
 			</ul>
 
 			<ul class="navbar-nav">
