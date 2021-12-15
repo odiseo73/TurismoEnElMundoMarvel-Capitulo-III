@@ -3,8 +3,10 @@ package services;
 import java.util.List;
 
 import modelos.Itinerario;
-
+import modelos.Promocion;
+import modelos.PromocionAbsoluta;
 import persistence.ItinerarioDAO;
+import persistence.PromocionDAO;
 import persistence.commons.DAOFactory;
 
 public class ItineraryService {
@@ -16,7 +18,7 @@ public class ItineraryService {
 	public Itinerario create(String user, String productosComprados, Double horasNecesarias, Double puntos) {
 		
 		Itinerario itinerario = new Itinerario(user,productosComprados,horasNecesarias,puntos);
-		if (!itinerario.esValido()) {
+		if (itinerario.esValido()) {
 			DAOFactory.getItinerarioDAO().insert(itinerario);
 			// XXX: si no devuelve "1", es que hubo más errores
 		}
@@ -45,4 +47,11 @@ public class ItineraryService {
 		return DAOFactory.getItinerarioDAO().find(id);
 	}
 
+	public void delete(Integer id) {
+		Itinerario itinerario = new Itinerario(id,"","",0.0,0.0);
+
+		ItinerarioDAO itinerarioDAO = DAOFactory.getItinerarioDAO();
+		itinerarioDAO.delete(itinerario);
+	}
+		
 }
