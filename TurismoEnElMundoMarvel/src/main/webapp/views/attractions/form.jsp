@@ -6,9 +6,9 @@
 			required value="${atraccion.getNombre()}">
 	</div>
 	<div class="mb-3">
-		<label for="cost"
+		<label for="precio"
 			class='col-form-label ${atraccion.getErrores().get("precio") != null ? "is-invalid" : "" }'>Costo:</label>
-		<input class="form-control" type="number" id="cost" name="cost"
+		<input class="form-control" type="number" id="precio" name="precio"
 			required value="${atraccion.getPrecio()}"></input>
 		<div class="invalid-feedback">
 			<c:out value='${atraccion.getErrores().get("precio")}'></c:out>
@@ -16,7 +16,7 @@
 	</div>
 	<div class="mb-3">
 		<label for="duration"
-			class='col-form-label ${atraccion.getErrores().get("tiempoEnHoras") != null ? "is-invalid" : "" }'>Duration:</label>
+			class='col-form-label ${atraccion.getErrores().get("tiempoEnHoras") != null ? "is-invalid" : "" }'>Duracion en horas:</label>
 		<input class="form-control" type="number" id="duration" name="duration"
 			required value="${atraccion.getTiempoEnHoras()}"></input>
 		<div class="invalid-feedback">
@@ -25,7 +25,7 @@
 	</div>
 	<div class="mb-3">
 		<label for="capacity"
-			class='col-form-label ${atraccion.getErrores().get("cupoDisponible") != null ? "is-invalid" : "" }'>Capacity:</label>
+			class='col-form-label ${atraccion.getErrores().get("cupoDisponible") != null ? "is-invalid" : "" }'>Cupo o lugares disponibles:</label>
 		<input class="form-control" type="number" id="capacity" name="capacity"
 			required value="${atraccion.getCupoDisponible()}"></input>
 		<div class="invalid-feedback">

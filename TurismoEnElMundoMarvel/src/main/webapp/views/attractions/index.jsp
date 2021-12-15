@@ -27,12 +27,12 @@
 			</div>
 		</c:if>
 		<c:if test="${success != null}">
-			<div class="alert alert-danger">
-				<p>
-					<c:out value="${success}" />
-				</p>
-			</div>
-		</c:if>
+				<div class="alert alert-success">
+					<p>
+						<c:out value="${success}" />
+					</p>
+				</div>
+			</c:if>
 		<div class="bg-light p-4 mb-3 rounded">
 			<h1>Estas son las atracciones del Mundo Marvel</h1>
 		</div>
@@ -51,7 +51,7 @@
 					<th>Atracci&oacute;n</th>
 					<th>Costo</th>
 					<th>Duraci&oacute;n</th>
-					<th>Cupo</th>
+					<th>Cupo Disponible</th>
 					<th>Acciones</th>
 				</tr>
 			</thead>
@@ -76,14 +76,15 @@
 							</c:if> <c:choose>
 
 								<c:when
-									test="${usuario.tieneDinero(atraccion) && usuario.tieneTiempo(atraccion) && !usuario.tieneComprado(atraccion) && atraccion.verificarCupo()}">
+									test="${usuario.tieneDinero(atraccion)	&& usuario.tieneTiempo(atraccion) && !usuario.tieneComprado(atraccion) &&
+									 atraccion.verificarCupo()}">
 									<a
 										href="/TurismoEnElMundoMarvel_Webapp/attractions/buy.do?id=${atraccion.getId()}"
 										class="btn btn-success rounded" role="button">Comprar</a>
 								</c:when>
 								<c:otherwise>
 									<a href="#" class="btn btn-secondary rounded disabled"
-										role="button">No se puede comprar</a>
+										role="button">Comprar</a>
 								</c:otherwise>
 							</c:choose></td>
 					</tr>

@@ -26,18 +26,9 @@
 </div>
 
 <div class="mb-3">
-	<label for="password"
-		class='col-form-label ${tmp_user.getErrores().get("password") != null ? "is-invalid" : "" }'>Contraseña:</label>
-	<input class="form-control" id="password" name="password"></input>
-	<div class="invalid-feedback">
-		<c:out value='${tmp_user.getErrores().get("password")}'></c:out>
-	</div>
-</div>
-
-<div class="mb-3">
 	<label for="admin"
 		class='col-form-label ${tmp_user.getErrores().get("admin") != null ? "is-invalid" : "" }'>Admin:</label>
-		<select class="form-select" aria-label="Default select example"  name = "admin">
+		<select class="form-select" aria-label="Default select example" name = "admin">
   <option selected>Abrir selector</option>
   <option value="true">Si</option>
   <option value="false">No</option>

@@ -11,19 +11,14 @@
 
 	<main class="container">
 
-		<c:if test="${atraccion != null && !atraccion.esValida()}">
+		<c:if test="${attraction != null && !attraction.esValida()}">
 			<div class="alert alert-danger">
-				<p>Se encontraron errores al crear la atracción.</p>
+				<p>Se encontraron errores al actualizar la atracción.</p>
 			</div>
 		</c:if>
-<c:if test="${success != null}">
-				<div class="alert alert-success">
-					<p>
-						<c:out value="${success}" />
-					</p>
-				</div>
-			</c:if>
-		<form action="/TurismoEnElMundoMarvel_Webapp/attractions/create.do" method="post">
+
+		<form action="/TurismoEnElMundoMarvel_Webapp/promotions/edit.do" method="post">
+			<input type="hidden" name="id" value="${atraccion.getId()}">
 			<jsp:include page="/views/attractions/form.jsp"></jsp:include>
 		</form>
 	</main>

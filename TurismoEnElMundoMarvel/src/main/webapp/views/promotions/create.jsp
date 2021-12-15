@@ -11,7 +11,7 @@
 
 	<main class="container">
 
-		<c:if test="${atraccion != null && !atraccion.esValida()}">
+		<c:if test="${promotion != null && !promotion.esValida()}">
 			<div class="alert alert-danger">
 				<p>Se encontraron errores al crear la atracción.</p>
 			</div>
@@ -23,8 +23,8 @@
 					</p>
 				</div>
 			</c:if>
-		<form action="/TurismoEnElMundoMarvel_Webapp/attractions/create.do" method="post">
-			<jsp:include page="/views/attractions/form.jsp"></jsp:include>
+		<form action="/TurismoEnElMundoMarvel_Webapp/promotions/create.do" method="post">
+			<jsp:include page="/views/promotions/form.jsp"></jsp:include>
 		</form>
 	</main>
 </body>

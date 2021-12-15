@@ -18,8 +18,8 @@
 		</c:if>
 
 		<form action="/TurismoEnElMundoMarvel_Webapp/users/edit.do" method="post">
-			<input type="hidden" name="id" value="${usuario.getId()}">
-			<jsp:include page="/views/users/form.jsp"></jsp:include>
+			<input type="hidden" name="id" value="${tmp_user.getId()}">
+			<jsp:include page="/views/users/form_edit.jsp"></jsp:include>
 		</form>
 	</main>
 </body>
