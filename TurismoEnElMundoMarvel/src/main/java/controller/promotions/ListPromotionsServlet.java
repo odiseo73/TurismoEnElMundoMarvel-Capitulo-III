@@ -21,10 +21,12 @@ public class ListPromotionsServlet extends HttpServlet implements Servlet {
 	private static final long serialVersionUID = -8346640902238722429L;
 	private PromotionService promotionService;
 
+	
 	@Override
 	public void init() throws ServletException {
 		super.init();
 		this.promotionService = new PromotionService();
+		
 	}
 
 	@Override
@@ -32,7 +34,8 @@ public class ListPromotionsServlet extends HttpServlet implements Servlet {
 			throws ServletException, IOException {
 		List<Promocion> promociones = promotionService.list();
 		req.setAttribute("promociones", promociones);
-
+		
+	
 		RequestDispatcher dispatcher = getServletContext()
 				.getRequestDispatcher("/views/promotions/index.jsp");
 		dispatcher.forward(req, resp);

@@ -1,6 +1,7 @@
 package controller.promotions;
 
 import java.io.IOException;
+import java.util.List;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -18,16 +19,18 @@ public class CreatePromotionServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 3455721046062278592L;
 	private PromotionService promotionService;
-
+	private AttractionService attractionService;
 	@Override
 	public void init() throws ServletException {
 		super.init();
 		this.promotionService = new PromotionService();
+		this.attractionService = new AttractionService();
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		List<Atraccion> atracciones = attractionService.list();
+		req.setAttribute("atracciones", atracciones);
 		RequestDispatcher dispatcher = getServletContext()
 				.getRequestDispatcher("/views/promotions/create.jsp");
 		dispatcher.forward(req, resp);
@@ -37,14 +40,15 @@ public class CreatePromotionServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		
-		String nombre= req.getParameter("nombre");
+		String nombre= req.getParameter("name");
+		
 		String tipo= req.getParameter("tipo");
 		Integer descuento = Integer.parseInt(req.getParameter("descuento"));
 		
 		Promocion promocion = promotionService.create(nombre,tipo,descuento);
 		
 		if (promocion.esPromocion()) {
-			resp.sendRedirect("/turismo/promotions/index.do");
+			resp.sendRedirect("/TurismoEnElMundoMarvel_Webapp/promotions/index.do");
 		} else {
 			req.setAttribute("promotion", promocion);
 

@@ -28,7 +28,7 @@ public class EditUserServlet extends HttpServlet {
 		Integer id = Integer.parseInt(req.getParameter("id"));
 
 		Usuario tmp_user = userService.find(id);
-		//crear metodo find
+		
 		req.setAttribute("tmp_user", tmp_user);
 
 		RequestDispatcher dispatcher = getServletContext()
@@ -38,7 +38,7 @@ public class EditUserServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		/*String username, String password, Double dinero, Double tiempoEnHoras*/
+	
 		Integer id = Integer.parseInt(req.getParameter("id"));
 		String username = req.getParameter("username");
 		Double dinero = Double.parseDouble(req.getParameter("coins"));
@@ -46,10 +46,10 @@ public class EditUserServlet extends HttpServlet {
 		Boolean admin = Boolean.parseBoolean(req.getParameter("admin"));
 
 		Usuario tmp_user = userService.update(id, username, dinero, tiempoEnHoras,admin);
-		//crear metodo update
+		
 
 		if (tmp_user.esValido()) {
-			resp.sendRedirect("/turismo/users/index.do");
+			resp.sendRedirect("/TurismoEnElMundoMarvel_Webapp/users/index.do");
 		} else {
 			req.setAttribute("tmp_user", tmp_user);
 

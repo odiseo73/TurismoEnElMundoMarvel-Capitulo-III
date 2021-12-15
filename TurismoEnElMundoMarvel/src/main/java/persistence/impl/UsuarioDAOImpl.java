@@ -85,7 +85,7 @@ try {
 			statement.setString(2, user.getPassword());
 			statement.setDouble(3, user.getDinero());
 			statement.setDouble(4, user.getTiempoEnHoras());
-			statement.setBoolean(4, user.esAdmin());
+			statement.setBoolean(5, user.esAdmin());
 			int rows = statement.executeUpdate();
 
 			return rows;

@@ -42,7 +42,7 @@ public class CreateUserServlet extends HttpServlet {
 		Usuario tmp_user = userService.create(username, password, dinero, tiempo, admin);
 		
 		if (tmp_user.esValido()) {
-			resp.sendRedirect("/turismo/users/index.do");
+			resp.sendRedirect("/TurismoEnElMundoMarvel_Webapp/users/index.do");
 		} else {
 			req.setAttribute("tmp_user", tmp_user);
 

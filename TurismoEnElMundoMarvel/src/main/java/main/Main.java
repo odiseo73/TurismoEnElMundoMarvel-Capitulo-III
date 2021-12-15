@@ -3,7 +3,6 @@ package main;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 
-import lectorDeArchivos.Parque;
 import modelos.Atraccion;
 import modelos.Usuario;
 import persistence.AtraccionDAO;

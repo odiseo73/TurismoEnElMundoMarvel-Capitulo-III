@@ -46,7 +46,7 @@ public class AttractionService {
 	}
 
 	public void delete(Integer id) {
-		Atraccion atraccion = new Atraccion(id, null, null, null, null, null);
+		Atraccion atraccion = new Atraccion(id, "", 0.0, 0.0, 0, "");
 
 		AtraccionDAO atraccionDAO = DAOFactory.getAtraccionDAO();
 		atraccionDAO.delete(atraccion);

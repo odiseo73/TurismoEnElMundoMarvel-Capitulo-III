@@ -48,9 +48,9 @@ public class EditAttractionServlet extends HttpServlet {
 		Atraccion atraccion = attractionService.update(id, nombre, precio, duration, capacity,description);
 
 		if (atraccion.esValida()) {
-			resp.sendRedirect("/turismo/attractions/index.do");
+			resp.sendRedirect("/TurismoEnElMundoMarvel_Webapp/attractions/index.do");
 		} else {
-			req.setAttribute("atraccion", atraccion);
+			req.setAttribute("attraction", atraccion);
 
 			RequestDispatcher dispatcher = getServletContext()
 					.getRequestDispatcher("/views/attractions/edit.jsp");

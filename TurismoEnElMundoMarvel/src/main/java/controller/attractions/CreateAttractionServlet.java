@@ -34,15 +34,18 @@ public class CreateAttractionServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String name = req.getParameter("name");
+		
 		Double precio = Double.parseDouble(req.getParameter("precio"));
-		Double duration = Double.parseDouble(req.getParameter("duration"));
+		double duration = Integer.parseInt(req.getParameter("duration"));
 		Integer capacity = Integer.parseInt(req.getParameter("capacity"));
-		String description = req.getParameter("decription");
+		String description = req.getParameter("description");
 		
 		Atraccion atraccion = attractionService.create(name, precio, duration, capacity,description);
 		
 		if (atraccion.esValida()) {
-			resp.sendRedirect("/turismo/attractions/index.do");
+			req.setAttribute("success", "Se creó una nueva atracción");
+			resp.sendRedirect("/TurismoEnElMundoMarvel_Webapp/attractions/index.do");
+			
 		} else {
 			req.setAttribute("attraction", atraccion);
 

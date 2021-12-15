@@ -13,6 +13,7 @@ import modelos.Usuario;
 import persistence.commons.DAOFactory;
 import services.BuyAttractionService;
 import services.BuyPromotionService;
+import services.UserService;
 
 @WebServlet("/promotions/buy.do")
 public class BuyPromotionServlet extends HttpServlet {
@@ -33,8 +34,9 @@ public class BuyPromotionServlet extends HttpServlet {
 		Usuario user = (Usuario) req.getSession().getAttribute("usuario");
 		Map<String, String> errors = buyPromotionService.buy(user.getId(), promotionId);
 		
-		Usuario user2 = DAOFactory.getUsuarioDAO().find(user.getId());
-		req.getSession().setAttribute("user", user2);
+		UserService userService = new UserService();
+		Usuario user2 = userService.find(user.getId());
+		req.getSession().setAttribute("usuario", user2);
 		
 		if (errors.isEmpty()) {
 			req.setAttribute("success", "¡Gracias por comprar!");

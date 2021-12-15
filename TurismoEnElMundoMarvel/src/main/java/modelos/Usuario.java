@@ -86,16 +86,34 @@ public class Usuario {
 
 	public boolean tieneComprado(Producto productoOfrecido) {
 		boolean bandera = false;
-		for (Producto producto : productosComprados) {
-		if (productoOfrecido.esPromocion()) {
-			for (Atraccion atraccion : productoOfrecido.getAtracciones()) {
-				if (atraccion.getId().equals(productoOfrecido.getId())) {
+		for (Producto productoComprado : productosComprados) {
+			if (productoComprado.getNombre().equals(productoOfrecido.getNombre())) {
+				bandera = true;
+			}
+		if (productoComprado.esPromocion()) {
+			List<Atraccion> atraccionesDePromoComprada = productoComprado.getAtracciones();
+			for (Atraccion atraccionComprada : atraccionesDePromoComprada) {
+				if (atraccionComprada.getNombre().equals(productoOfrecido.getNombre())) {
 					bandera = true;
 				}
+				if(productoOfrecido.esPromocion()) {
+					List<Atraccion> atraccionesDePromoOfrecida = productoOfrecido.getAtracciones();
+					for(Atraccion atraccionOfrecida : atraccionesDePromoOfrecida ) {
+						if (atraccionComprada.getNombre().equals(atraccionOfrecida.getNombre())) {
+							bandera = true;
+						}
+					}
+				}
 			}
-		} else {
-			if (producto.getId().equals(productoOfrecido.getId())) {
-				bandera = true;
+		}
+		if(!productoComprado.esPromocion()) {
+			if(productoOfrecido.esPromocion()) {
+				List<Atraccion> atraccionesDePromoOfrecida = productoOfrecido.getAtracciones();
+						for(Atraccion atraccionOfrecida : atraccionesDePromoOfrecida ) {
+					if (productoComprado.getNombre().equals(atraccionOfrecida.getNombre())) {
+						bandera = true;
+					}
+				}
 			}
 		}
 		}
@@ -124,7 +142,7 @@ public void setProductosAlItinerario() {
 	Double puntos = 0.0;
 	String productosAlItinerario = "";
 	for (Producto producto : productosComprados) {
-		productosAlItinerario = producto.getNombre() + ",";
+		productosAlItinerario += producto.getNombre() + ",";
 		horasNecesarias += producto.getTiempoEnHoras();
 		if(producto.esPromocion()) {
 			puntos += producto.getPrecioConDescuento();
@@ -144,9 +162,9 @@ public void setProductosAlItinerario() {
 
 		if (producto.esPromocion()) {
 			this.dineroDisponible -= producto.getPrecioConDescuento();
-			for (Atraccion atraccion : producto.getAtracciones()) {
-				this.productosComprados.add(atraccion);
-			}
+			
+				this.productosComprados.add(producto);
+			
 		}
 		if (!producto.esPromocion()) {
 			this.dineroDisponible -= producto.getPrecio();

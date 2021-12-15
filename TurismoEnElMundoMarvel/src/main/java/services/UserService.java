@@ -8,6 +8,7 @@ import modelos.Itinerario;
 import modelos.Producto;
 import modelos.Promocion;
 import modelos.Usuario;
+import persistence.AtraccionDAO;
 import persistence.UsuarioDAO;
 import persistence.commons.DAOFactory;
 
@@ -32,16 +33,17 @@ public class UserService {
 public List<Producto> setProductosComprados(Usuario usuario){
 	List<Producto> productosComprados = new LinkedList<Producto>();
 	String [] productosCompradosString = usuario.getItinerario().getProductosArray();
+	PromotionService promotionService = new PromotionService();
 	List<Atraccion> atracciones = DAOFactory.getAtraccionDAO().findAll();
-	List<Promocion> promociones = DAOFactory.getPromocionDAO().findAll();
-	for (String producto : productosCompradosString) {
+	List<Promocion> promociones =  promotionService.list();
+	for (String productoString : productosCompradosString) {
 			for (Promocion promocion : promociones) {
-				if(producto.equals(promocion.getNombre())) {
+				if(productoString.equals(promocion.getNombre())) {
 					productosComprados.add(promocion);
 				}
 			}
 			for(Atraccion atraccion : atracciones) {
-				if(producto.equals(atraccion.getNombre())) {
+				if(productoString.equals(atraccion.getNombre())) {
 					productosComprados.add(atraccion);
 				}
 			}
@@ -57,16 +59,21 @@ public List<Producto> setProductosComprados(Usuario usuario){
 		usuario.setProductosComprados(productosComprados);
 		return usuario;
 	}
+	public void delete(Integer id) {
+		Usuario usuario = new Usuario(id, "", "", 0.0, 0.0, false);
+
+		UsuarioDAO usuarioDAO = DAOFactory.getUsuarioDAO();
+		usuarioDAO.delete(usuario);
+	}
 
 	public Usuario update(Integer id, String username, Double dinero, Double tiempoEnHoras, Boolean admin) {
 		
 		UsuarioDAO usuarioDAO = DAOFactory.getUsuarioDAO();
 		Usuario usuario = usuarioDAO.find(id);
-usuario.setUsername(username);
-usuario.setDinero(dinero);
-usuario.setTiempo(tiempoEnHoras);
-usuario.setAdmin(admin);
-		//no se como hacerlo
+		usuario.setUsername(username);
+		usuario.setDinero(dinero);
+		usuario.setTiempo(tiempoEnHoras);
+		usuario.setAdmin(admin);
 
 		if (usuario.esValido()) {
 			usuarioDAO.update(usuario);

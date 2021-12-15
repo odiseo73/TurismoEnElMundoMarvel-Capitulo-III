@@ -40,6 +40,15 @@ public abstract class Promocion extends Producto {
 	public String getNombre() {
 		return nombre;
 	}
+	
+	public Integer getDescuento() {
+		return descuento;
+	}
+
+	public HashMap<String, String> getErrores() {
+		return errores;
+	}
+
 	public void setDescuento(Integer descuento) {
 		this.descuento = descuento;
 	}
@@ -55,7 +64,7 @@ public abstract class Promocion extends Producto {
 	}
 
 	public List<Atraccion> getAtracciones() {
-		return atracciones;
+		return this.atracciones;
 	}
 
 	public List<String> getNombresAtracciones() {

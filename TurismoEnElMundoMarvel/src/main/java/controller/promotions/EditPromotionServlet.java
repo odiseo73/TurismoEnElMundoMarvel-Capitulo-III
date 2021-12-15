@@ -48,7 +48,7 @@ public class EditPromotionServlet extends HttpServlet {
 		Promocion promocion = promotionService.update(id, nombre, tipo, descuento, atracciones);
 
 		if (promocion.esPromocion()) {
-			resp.sendRedirect("/turismo/promotions/index.do");
+			resp.sendRedirect("/TurismoEnElMundoMarvel_Webapp/promotions/index.do");
 		} else {
 			req.setAttribute("promotion", promocion);
 
