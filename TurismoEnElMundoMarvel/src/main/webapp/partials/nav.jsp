@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-	<div class="container">
+	<div class="container-xl">
 		<a class="navbar-brand"
 			href="/TurismoEnElMundoMarvel_Webapp/index.jsp">Turismo en el
 			Mundo Marvel</a>

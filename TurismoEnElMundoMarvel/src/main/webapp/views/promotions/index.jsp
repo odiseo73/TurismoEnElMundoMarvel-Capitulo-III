@@ -5,11 +5,15 @@
 <html>
 <head>
 <jsp:include page="/partials/head.jsp"></jsp:include>
+
+<jsp:include page="/partials/nav.jsp"></jsp:include>
+<link rel="stylesheet" href="/TurismoEnElMundoMarvel_Webapp/assets/stylesheets/viewStyle.css">
+<c:if test="${!usuario.esAdmin()}">
+<jsp:include page="/views/promotions/Packages.jsp"></jsp:include>
+</c:if>
+<title>Promociones</title>
 </head>
-<body>
-
-	<jsp:include page="/partials/nav.jsp"></jsp:include>
-
+<body class="body_prom">
 	<main class="container">
 
 		<c:if test="${flash != null}">
@@ -25,31 +29,20 @@
 					</c:if>
 				</p>
 			</div>
-			</c:if>
-			<c:if test="${success != null}">
-				<div class="alert alert-success">
-					<p>
-						<c:out value="${success}" />
-					</p>
-				</div>
-			</c:if>
-		<div class="bg-light p-4 mb-3 rounded">
-			<h1>Estas son las promociones del Mundo Marvel</h1>
-		</div>
-
-		<c:if test="${usuario.esAdmin()}">
-			<div class="mb-3">
-				<a href="/TurismoEnElMundoMarvel_Webapp/promotions/create.do"
-					class="btn btn-primary" role="button"> <i class="bi bi-plus-lg"></i>
-					Nueva Promocion
-				</a>
-			</div>
 		</c:if>
-		<table class="table table-stripped table-hover">
+		<c:if test="${success != null}">
+<c:out value="${success}" />
+</c:if>
+<div class="bg-dark p-1 mb-1 rounded">
+			<p class="subtitle_text">Promociones</p>
+		</div>
+		
+		<table class="table table-dark table-stripped table-hover">
 			<thead>
 				<tr>
 					<th>Promoci&oacute;n</th>
 					<th>Costo</th>
+					<th>Descuento</th>
 					<th>Costo Con Descuento</th>
 					<th>Lista de Atracciones</th>
 					<th>Duraci&oacute;n</th>
@@ -61,25 +54,17 @@
 				<c:forEach items="${promociones}" var="promocion">
 					<tr>
 						<td><strong><c:out value="${promocion.getNombre()}"></c:out></strong>
-							<p></p></td>
+							<p>${promocion.getDescripcion()}</p></td>
 						<td><c:out value="${promocion.getPrecio()}"></c:out></td>
+						<td><c:out value="${promocion.getInfoDeDescuento()}"></c:out></td>
 						<td><c:out value="${promocion.getPrecioConDescuento()}"></c:out></td>
 						<td><c:out value="${promocion.getNombresAtracciones()}"></c:out></td>
 						<td><c:out value="${promocion.getTiempoEnHoras()}"></c:out></td>
 						<td><c:out value="${promocion.getTipo()}"></c:out></td>
-						<td><c:if test="${usuario.esAdmin()}">
-								<a
-									href="/TurismoEnElMundoMarvel_Webapp/promotions/edit.do?id=${promocion.getId()}"
-									class="btn btn-light rounded-0" role="button"><i
-									class="bi bi-pencil-fill"></i></a>
-								<a
-									href="/TurismoEnElMundoMarvel_Webapp/promotions/delete.do?id=${promocion.getId()}"
-									class="btn btn-danger rounded" role="button"><i
-									class="bi bi-x-circle-fill"></i></a>
-							</c:if> <c:choose>
+						<td><c:choose>
 
 								<c:when
-									test="${usuario.tieneDinero(promocion) && usuario.tieneTiempo(promocion) && !usuario.tieneComprado(promocion) && promocion.verificarCupo()}">
+									test="${usuario.tieneDinero(promocion) && usuario.tieneTiempo(promocion) && promocion.verificarCupo() && !usuario.tieneComprado(promocion)}">
 									<a
 										href="/TurismoEnElMundoMarvel_Webapp/promotions/buy.do?id=${promocion.getId()}"
 										class="btn btn-success rounded" role="button">Comprar</a>

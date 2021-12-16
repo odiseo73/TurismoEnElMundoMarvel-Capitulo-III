@@ -5,8 +5,11 @@
 <html>
 <head>
 <jsp:include page="/partials/head.jsp"></jsp:include>
+<link rel="stylesheet"
+	href="/TurismoEnElMundoMarvel_Webapp/assets/stylesheets/viewStyle.css">
+	 <title>Itinerarios</title>
 </head>
-<body>
+<body class="body_itineraries">
 
 	<jsp:include page="/partials/nav.jsp"></jsp:include>
 
@@ -27,11 +30,11 @@
 			</div>
 		</c:if>
 
-		<div class="bg-light p-4 mb-3 rounded">
-			<h1>Itinerarios</h1>
+		<div class="bg-dark p-1 mb-1 rounded">
+			<p class="subtitle_text">Itinerarios</p>
 		</div>
 
-		<table class="table table-stripped table-hover">
+		<table class="table table-dark table-stripped table-hover">
 			<thead>
 				<tr>
 					<th>Nombre</th>

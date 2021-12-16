@@ -5,11 +5,12 @@
 <html>
 <head>
 <jsp:include page="/partials/head.jsp"></jsp:include>
+<link rel="stylesheet"
+	href="/TurismoEnElMundoMarvel_Webapp/assets/stylesheets/viewStyle.css">
+	 <title>Atracciones</title>
 </head>
-<body>
-
-	<jsp:include page="/partials/nav.jsp"></jsp:include>
-
+<body class="body_atr">
+<jsp:include page="/partials/nav.jsp"></jsp:include>
 	<main class="container">
 
 		<c:if test="${flash != null}">
@@ -33,8 +34,8 @@
 					</p>
 				</div>
 			</c:if>
-		<div class="bg-light p-4 mb-3 rounded">
-			<h1>Estas son las atracciones del Mundo Marvel</h1>
+		<div class="bg-dark p-1 mb-1 rounded">
+			<p class="subtitle_text">Atracciones</p>
 		</div>
 
 		<c:if test="${usuario.esAdmin()}">
@@ -45,7 +46,7 @@
 				</a>
 			</div>
 		</c:if>
-		<table class="table table-stripped table-hover">
+		<table class="table table-dark table-stripped table-hover" style=opacity:90%>
 			<thead>
 				<tr>
 					<th>Atracci&oacute;n</th>

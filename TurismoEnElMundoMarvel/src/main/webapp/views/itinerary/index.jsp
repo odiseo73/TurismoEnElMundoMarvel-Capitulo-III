@@ -5,11 +5,12 @@
 <html>
 <head>
 <jsp:include page="/partials/head.jsp"></jsp:include>
+<jsp:include page="/partials/nav.jsp"></jsp:include>
+<link rel="stylesheet"
+	href="/TurismoEnElMundoMarvel_Webapp/assets/stylesheets/viewStyle.css">
+	 <title>Itinerario</title>
 </head>
-<body>
-
-	<jsp:include page="/partials/nav.jsp"></jsp:include>
-
+<body class="body_iti">
 	<main class="container">
 
 		<c:if test="${flash != null}">
@@ -27,11 +28,11 @@
 			</div>
 		</c:if>
 
-		<div class="bg-light p-4 mb-3 rounded">
-			<h1>Itinerario</h1>
+		<div class="bg-dark p-1 mb-1 rounded">
+			<p class="subtitle_text">Itinerario</p>
 		</div>
 
-		<table class="table table-stripped table-hover">
+		<table class="table table-dark table-stripped table-hover">
 			<thead>
 				<tr>
 					<th>Nombre</th>
@@ -41,14 +42,15 @@
 				</tr>
 			</thead>
 			<tbody>
-				
-					<tr>
-						<td><strong><c:out value="${itinerario.getUsername()}"></c:out></strong></td>
-						<td><c:out value="${itinerario.getProductos()}"></c:out></td>
-						<td><c:out value="${itinerario.getHorasNecesarias()}"></c:out></td>
-						<td><c:out value="${itinerario.getPuntos()}"></c:out></td>
-					</tr>
-				
+
+				<tr>
+					<td><strong><c:out
+								value="${itinerario.getUsername()}"></c:out></strong></td>
+					<td><c:out value="${itinerario.getProductos()}"></c:out></td>
+					<td><c:out value="${itinerario.getHorasNecesarias()}"></c:out></td>
+					<td><c:out value="${itinerario.getPuntos()}"></c:out></td>
+				</tr>
+
 			</tbody>
 		</table>
 

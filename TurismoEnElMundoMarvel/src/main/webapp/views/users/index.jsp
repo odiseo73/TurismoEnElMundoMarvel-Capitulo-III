@@ -5,8 +5,10 @@
 <html>
 <head>
 <jsp:include page="/partials/head.jsp"></jsp:include>
+<link rel="stylesheet" href="/TurismoEnElMundoMarvel_Webapp/assets/stylesheets/viewStyle.css">
+ <title>Usuarios</title>
 </head>
-<body>
+<body class="body_users">
 
 	<jsp:include page="/partials/nav.jsp"></jsp:include>
 
@@ -26,15 +28,9 @@
 				</p>
 			</div>
 		</c:if>
-<c:if test="${success != null}">
-				<div class="alert alert-success">
-					<p>
-						<c:out value="${success}" />
-					</p>
-				</div>
-			</c:if>
-		<div class="bg-light p-4 mb-3 rounded">
-			<h1>Usuarios</h1>
+
+		<div class="bg-dark p-1 mb-1 rounded">
+			<p class="subtitle_text">Usuarios</p>
 		</div>
 
 		<c:if test="${usuario.esAdmin()}">
@@ -44,7 +40,7 @@
 				</a>
 			</div>
 		</c:if>
-		<table class="table table-stripped table-hover">
+		<table class="table table-dark table-stripped table-hover">
 			<thead>
 				<tr>
 					<th>Nombre</th>

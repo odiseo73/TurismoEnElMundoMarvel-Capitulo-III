@@ -1,6 +1,4 @@
 <meta charset="UTF-8">
-<title>Turismo en el Mundo Marvel</title>
-
 <link rel="shortcut icon" href="/TurismoEnElMundoMarvel_Webapp/assets/img/m.ico">
 
 <link
