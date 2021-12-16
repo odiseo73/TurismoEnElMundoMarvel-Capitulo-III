@@ -44,8 +44,9 @@ public class CreatePromotionServlet extends HttpServlet {
 		
 		String tipo= req.getParameter("tipo");
 		Integer descuento = Integer.parseInt(req.getParameter("descuento"));
+		String descripcion = req.getParameter("descripcion");
 		
-		Promocion promocion = promotionService.create(nombre,tipo,descuento);
+		Promocion promocion = promotionService.create(nombre,tipo,descuento,descripcion);
 		
 		if (promocion.esPromocion()) {
 			resp.sendRedirect("/TurismoEnElMundoMarvel_Webapp/promotions/index.do");

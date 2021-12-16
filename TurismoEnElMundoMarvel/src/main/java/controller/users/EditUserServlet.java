@@ -49,7 +49,9 @@ public class EditUserServlet extends HttpServlet {
 		
 
 		if (tmp_user.esValido()) {
+			req.getSession().setAttribute("usuario", tmp_user);
 			resp.sendRedirect("/TurismoEnElMundoMarvel_Webapp/users/index.do");
+			
 		} else {
 			req.setAttribute("tmp_user", tmp_user);
 

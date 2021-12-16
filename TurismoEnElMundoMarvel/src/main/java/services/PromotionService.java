@@ -23,9 +23,9 @@ public class PromotionService {
 		return promociones;
 	}
 
-	public Promocion create(String nombre,String tipo, Integer descuento) {
+	public Promocion create(String nombre,String tipo, Integer descuento,String descripcion) {
 
-		Promocion promocion = PromotionSelector.clasificarPromocionSinId(nombre, tipo, descuento);
+		Promocion promocion = PromotionSelector.clasificarPromocionSinId(nombre, tipo, descuento,descripcion);
 
 		if (promocion.esPromocion()) {
 			PromocionDAO promocionDAO = DAOFactory.getPromocionDAO();
@@ -36,13 +36,14 @@ public class PromotionService {
 		return promocion;
 	}
 
-	public Promocion update(Integer id, String name, String tipo, Integer descuento, List<String> atracciones) {
+	public Promocion update(Integer id, String name, String tipo, Integer descuento, List<String> atracciones,String descripcion) {
 
 		PromocionDAO promocionDAO = DAOFactory.getPromocionDAO();
 		Promocion promocion = promocionDAO.find(id);
 		promocion.setNombre(name);
 		promocion.setTipo(tipo);
 		promocion.setDescuento(descuento);
+		promocion.setDescripcion(descripcion);
 		promocionDAO.update(promocion);
 		//no se como hacer este metodo
 
@@ -50,7 +51,7 @@ public class PromotionService {
 	}
 
 	public void delete(Integer id) {
-		Promocion promocion = new PromocionAbsoluta(id,null,null,null);
+		Promocion promocion = new PromocionAbsoluta(id,null,null,null,null);
 
 		PromocionDAO promocionDAO = DAOFactory.getPromocionDAO();
 		promocionDAO.delete(promocion);

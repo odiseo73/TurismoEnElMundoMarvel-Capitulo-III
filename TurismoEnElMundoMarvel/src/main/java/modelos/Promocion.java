@@ -12,7 +12,9 @@ public abstract class Promocion extends Producto {
 	private Integer id;
 	private String tipo;
 	protected Integer descuento;
+	protected String infoDeDescuento;
 	protected HashMap<String,String> errores;
+	protected String descripcion;
 
 	public Promocion(String nombre, String tipo) {
 		this.nombre = nombre;
@@ -30,10 +32,29 @@ public abstract class Promocion extends Producto {
 			
 		this.atracciones.add(atraccion);
 		}
+	 setInfoDeDescuento();
 
 	}
+	
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public String getInfoDeDescuento() {
+		return infoDeDescuento;
+	}
+
+	public void setInfoDeDescuento() {
+				
+	}
+
 	public void agregarAtraccion(Atraccion atraccion) {
 		this.atracciones.add(atraccion);
+		setInfoDeDescuento();
 	}
 	public abstract double getPrecioConDescuento();
 

@@ -6,14 +6,16 @@ public class PromocionPorcentual extends Promocion {
 	private int descuentoPorcentual;
 	private double precio;
 
-	public PromocionPorcentual(Integer id, String nombre, Integer descuento, String tipo) {
+	public PromocionPorcentual(Integer id, String nombre, Integer descuento, String tipo,String descripcion) {
 		super(id, nombre, tipo);
 		this.descuentoPorcentual = descuento;
+		this.descripcion = descripcion;
 	}
 	
-	public PromocionPorcentual(String nombre, Integer descuento, String tipo) {
+	public PromocionPorcentual(String nombre, Integer descuento, String tipo,String descripcion) {
 		super(nombre, tipo);
 		this.descuentoPorcentual = descuento;
+		this.descripcion = descripcion;
 	}
 	
 	@Override
@@ -24,10 +26,9 @@ public class PromocionPorcentual extends Promocion {
 
 	}
 
-
-	public boolean compararNombresIguales(List<Atraccion> atraccionesCompradas, Producto productoOfrecido) {
-		// TODO Auto-generated method stub
-		return false;
+	public void setInfoDeDescuento() {
+		String info = "El descuento es de " + this.descuentoPorcentual + " %";
+		this.infoDeDescuento = info;
 	}
 
 	@Override

@@ -47,8 +47,9 @@ public class PromocionDAOImpl implements PromocionDAO {
 
 		String tipo = result.getString("tipo");
 		Integer descuento = result.getInt("descuento");
+		String descripcion = result.getString("descripcion");
 
-		Promocion prom = PromotionSelector.clasificarPromocionConId(id, nombre, tipo, descuento);
+		Promocion prom = PromotionSelector.clasificarPromocionConId(id, nombre, tipo, descuento,descripcion);
 		return prom;
 	}
 
@@ -77,11 +78,12 @@ public class PromocionDAOImpl implements PromocionDAO {
 	public int insert(Promocion promocion) {
 		try {
 			Connection connection = ConnectionProvider.getConnection();
-			String sql = "INSERT INTO PROMOCIONES (NOMBRE, TIPO, DESCUENTO) VALUES (?,?,?)";
+			String sql = "INSERT INTO PROMOCIONES (NOMBRE, TIPO, DESCUENTO,DESCRIPCION) VALUES (?,?,?,?)";
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, promocion.getNombre());
 			statement.setString(2, promocion.getTipo());
 			statement.setDouble(3, promocion.getPrecioConDescuento());
+			statement.setString(4, promocion.getDescripcion());
 
 			int rows = statement.executeUpdate();
 
@@ -96,12 +98,13 @@ public class PromocionDAOImpl implements PromocionDAO {
 	public int update(Promocion promocion) {
 		try {
 			Connection connection = ConnectionProvider.getConnection();
-			String sql = "UPDATE PROMOCIONES SET NOMBRE = ?, TIPO = ?, DESCUENTO = ? WHERE ID_PROMOCIONES = ?";
+			String sql = "UPDATE PROMOCIONES SET NOMBRE = ?, TIPO = ?, DESCUENTO = ?, DESCRIPCION = ? WHERE ID_PROMOCIONES = ?";
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, promocion.getNombre());
 			statement.setString(2, promocion.getTipo());
 			statement.setDouble(3, promocion.getPrecioConDescuento());
-			statement.setInt(4, promocion.getId());
+			statement.setString(4, promocion.getDescripcion());
+			statement.setInt(5, promocion.getId());
 			int rows = statement.executeUpdate();
 
 			return rows;

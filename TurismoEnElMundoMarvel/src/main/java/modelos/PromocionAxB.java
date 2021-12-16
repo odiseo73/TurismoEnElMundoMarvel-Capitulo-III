@@ -3,13 +3,13 @@ package modelos;
 import java.util.List;
 
 public class PromocionAxB extends Promocion {
-public PromocionAxB(Integer id, String nombre, String tipo) {
+public PromocionAxB(Integer id, String nombre, String tipo,String descripcion) {
 		super(id, nombre, tipo);
-		
+	this.descripcion = descripcion;	
 	}
-public PromocionAxB( String nombre, String tipo) {
+public PromocionAxB( String nombre, String tipo,String descripcion) {
 	super(nombre, tipo);
-	
+	this.descripcion = descripcion;
 }
 
 private double precio;
@@ -21,7 +21,10 @@ private double precio;
 		return precio;
 		
 	}
-
+	public void setInfoDeDescuento() {
+		String info = "Gratis " + super.getAtracciones().get(0).getNombre();
+		this.infoDeDescuento = info;
+	}
 
 	public void restarCupo() {
 		// TODO Auto-generated method stub

@@ -43,9 +43,10 @@ public class EditPromotionServlet extends HttpServlet {
 		String nombre = req.getParameter("name");
 		String tipo = req.getParameter("tipo");
 		Integer descuento = Integer.parseInt(req.getParameter("descuento"));
+		String descripcion = req.getParameter("descripcion");
 		List<String> atracciones = null;
 
-		Promocion promocion = promotionService.update(id, nombre, tipo, descuento, atracciones);
+		Promocion promocion = promotionService.update(id, nombre, tipo, descuento, atracciones, descripcion);
 
 		if (promocion.esPromocion()) {
 			resp.sendRedirect("/TurismoEnElMundoMarvel_Webapp/promotions/index.do");
